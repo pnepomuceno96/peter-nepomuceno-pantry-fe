@@ -13,23 +13,23 @@
 <br>
 <mat-form-field>
     <mat-label>Quantity</mat-label>
-    <input required matInput type="number" [value]="quantity">
+    <input required matInput type="number" [(ngModel)]="quantity">
 </mat-form-field>
 <mat-form-field>
     <mat-label>Measurement</mat-label>
-    <mat-select required #measurement>
-        <mat-option *ngFor="let mes of measurements" [value]="mes">{{mes}}</mat-option>
+    <mat-select matInput required [(value)]="selectedMeasurement" (selectionChange)="updateMeasurement(selectedMeasurement)">
+        <mat-option *ngFor="let meas of measurements" [value]="meas">{{meas}}</mat-option>
     </mat-select>
 </mat-form-field>
 <br>
 <mat-form-field>
     <mat-label>Calories per quantity</mat-label>
-    <input required matInput type="number" [value]="calories">
+    <input required matInput type="number" [(ngModel)]="calories">
 </mat-form-field>
 <br>
 <mat-form-field>
     <mat-label>Weight per quantity</mat-label>
-    <input required matInput type="number" [value]="weight">
+    <input required matInput type="number" [(ngModel)]="weight">
 </mat-form-field>
-<button mat-flat-button color="green" (click)="postItem(name.value, image.value, measurement.value)">Submit</button>
+<button mat-flat-button color="primary" (click)="postItem(name.value, image.value)">Submit</button>
 <button mat-flat-button color="primary" (click)="this.ui.goHome()">Back</button>

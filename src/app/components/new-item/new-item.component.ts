@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UiService } from 'src/app/services/ui.service';
 import { Item } from 'src/data/Item';
+import { ItemDTO } from 'src/DTOs/ItemDTO';
 
 @Component({
   selector: 'app-new-item',
@@ -13,21 +14,26 @@ export class NewItemComponent implements OnInit{
   }
   constructor(public ui: UiService) {}
 
-  private newItem = {} as Item
-  public selectedMeasurement = ""
+  private newItem = {} as ItemDTO
   public quantity = 0
   public calories = 0
   public weight = 0
+  public selectedMeasurement = ""
 
   public measurements = ['cups', 'tsps', 'tbsps', 'pints', 'N/A']
+  public updateMeasurement(m: string) {
+    this.newItem.measurement =  m
+  }
 
-  public postItem(name: string, image: string, measurement: string) {
+  public postItem(name: string, image: string) {
     this.newItem.name = name
     this.newItem.image = image
+    console.log(this.newItem.measurement)
     if(this.newItem.measurement = "N/A"){
       this.newItem.measurement = ""
+      console.log("na")
     } else {
-      this.newItem.measurement = measurement
+      this.newItem.measurement = this.selectedMeasurement
     }
     this.newItem.quantity = this.quantity
     this.newItem.calories = this.calories

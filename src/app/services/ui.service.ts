@@ -50,7 +50,7 @@ export class UiService {
   public currentUser = {} as AppUser
 
   public showError(message: string): void {
-    this.snackBar.open(message, undefined, {duration: 2000})
+    this.snackBar.open(message, undefined, {duration: 4000})
   }
 
   public goHome(): void {
