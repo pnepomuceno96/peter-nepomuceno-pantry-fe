@@ -22,14 +22,14 @@ export class NewItemComponent implements OnInit{
 
   public measurements = ['cups', 'tsps', 'tbsps', 'pints', 'N/A']
   public updateMeasurement(m: string) {
-    this.newItem.measurement =  m
+    this.selectedMeasurement =  m
   }
 
   public postItem(name: string, image: string) {
     this.newItem.name = name
     this.newItem.image = image
     console.log(this.newItem.measurement)
-    if(this.newItem.measurement = "N/A"){
+    if(this.selectedMeasurement == "N/A"){
       this.newItem.measurement = ""
       console.log("na")
     } else {
