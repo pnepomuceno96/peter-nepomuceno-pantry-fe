@@ -22,7 +22,7 @@ export class UiService {
     const username = localStorage.getItem('username')
     const password = localStorage.getItem('password')
     if(username !== null && password !== null) {
-      this.getUser(username, password)
+      this.loadUser(username, password)
     }
   }
   private userUrl = "http://localhost:8080/appusers"
@@ -69,6 +69,10 @@ export class UiService {
     this.pageName = Page.NEWITEM
   }
 
+  public showNewRecipe(): void {
+    this.pageName = Page.NEWRECIPE
+  }
+
   public showUsers(): void {
     this.pageName = Page.USERS
   }
@@ -81,6 +85,8 @@ export class UiService {
     this.pageName = Page.RECIPEDETAILS
   }
 
+  
+
   public login(appUser: AppUser): void {
     localStorage.setItem('username', appUser.username)
     localStorage.setItem('password', appUser.password)
@@ -91,6 +97,18 @@ export class UiService {
     localStorage.clear()
     this.currentUser = {} as AppUser
     this.loggedIn = false
+  }
+
+  public getUser(): AppUser {
+    return this.user
+  }
+
+  public getItem(): Item {
+    return this.item
+  }
+
+  public getRecipe(): Recipe {
+    return this.recipe
   }
 
   // C
@@ -119,7 +137,7 @@ export class UiService {
         this.loadItems()
       },
       error: err => {
-        this.showError('Oops, something went wrong.')
+        this.showError('Item likely already exists. Try adding quantity via the home menu!')
       }
     })
   }
@@ -137,7 +155,7 @@ export class UiService {
   }
 
   // R
-  public getUser(username: string, password: string): void {
+  public loadUser(username: string, password: string): void {
     this.http.get<AppUser>(`http://localhost:8080/appusers?username=${username}&password=${password}`)
     .pipe(take(1)).subscribe({
       next: appUser => {

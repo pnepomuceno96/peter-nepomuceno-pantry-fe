@@ -1,0 +1,8 @@
+.less-wide {
+    width: 22rem;
+}
+
+.card-image {
+    max-width: 21rem;
+    /* margin-left: 50px; */
+}

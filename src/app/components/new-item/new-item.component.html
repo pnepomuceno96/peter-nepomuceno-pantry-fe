@@ -1,1 +1,35 @@
-<p>new-item works!</p>
+<mat-toolbar>
+    New Item
+</mat-toolbar>
+<mat-form-field>
+    <mat-label>Name</mat-label>
+    <input required matInput type="text" #name>
+</mat-form-field>
+<br>
+<mat-form-field>
+    <mat-label>Image URL</mat-label>
+    <input required matInput type="text" #image>
+</mat-form-field>
+<br>
+<mat-form-field>
+    <mat-label>Quantity</mat-label>
+    <input required matInput type="number" [value]="quantity">
+</mat-form-field>
+<mat-form-field>
+    <mat-label>Measurement</mat-label>
+    <mat-select required #measurement>
+        <mat-option *ngFor="let mes of measurements" [value]="mes">{{mes}}</mat-option>
+    </mat-select>
+</mat-form-field>
+<br>
+<mat-form-field>
+    <mat-label>Calories per quantity</mat-label>
+    <input required matInput type="number" [value]="calories">
+</mat-form-field>
+<br>
+<mat-form-field>
+    <mat-label>Weight per quantity</mat-label>
+    <input required matInput type="number" [value]="weight">
+</mat-form-field>
+<button mat-flat-button color="green" (click)="postItem(name.value, image.value, measurement.value)">Submit</button>
+<button mat-flat-button color="primary" (click)="this.ui.goHome()">Back</button>

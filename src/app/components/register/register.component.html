@@ -1,1 +1,17 @@
-<p>register works!</p>
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>
+            Register
+        </mat-card-title>
+    </mat-card-header>
+    <mat-form-field>
+        <mat-label>Username</mat-label>
+        <input matInput type="text" #username/>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input matInput type="password" #password/>
+    </mat-form-field>
+</mat-card>
+<button mat-flat-button color="primary" (click)="register(username.value, password.value)">Register</button>
+<button mat-flat-button color="primary" (click)="this.ui.goHome()">Home</button>

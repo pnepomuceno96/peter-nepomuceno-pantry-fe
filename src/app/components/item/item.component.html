@@ -1,0 +1,16 @@
+<mat-card class = less-wide>
+    <mat-card-header>
+        <mat-card-title>
+            {{item.name}}
+        </mat-card-title>
+        <button mat-button color="primary" (click)="openAddDialog()">Add More</button>
+    </mat-card-header>
+    <mat-card-content>
+        <img class="card-image" mat-card-image src="{{item.image}}">
+    </mat-card-content>
+    <mat-card-footer>
+        Quantity: {{item.quantity}} {{item.measurement}} |
+        Calories per quantity: {{item.calories}} |
+        Weight per quantity: {{item.weight}} lbs
+    </mat-card-footer>
+</mat-card>

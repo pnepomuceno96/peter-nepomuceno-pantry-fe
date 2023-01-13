@@ -1,7 +1,8 @@
 <mat-toolbar color="primary" class="toolbar">
     <span>Welcome to your Pantry!</span>
+    <button mat-flat-button color="primary" (click)="ui.showNewItem()">Add an Item</button>
     <div id="align-right">
-        <button mat-flat-button color="primary">Login</button>
-        <button mat-flat-button color="primary">Register</button>
+        <button mat-flat-button color="accent" (click)="ui.showLogin()">Login</button>
+        <button mat-flat-button color="accent" (click)="ui.showRegister()">Register</button>
     </div>
 </mat-toolbar>

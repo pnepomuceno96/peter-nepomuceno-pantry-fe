@@ -1,1 +1,10 @@
-<app-header></app-header>
+<body class="background">
+<div *ngIf="ui.pageName==page.HOME">
+  <app-header *ngIf="ui.loggedIn==false"></app-header>
+  <app-user-header *ngIf="ui.loggedIn==true"></app-user-header>
+  <app-item *ngFor="let item of ui.items" [item]="item"></app-item>
+</div>
+<app-login *ngIf="ui.pageName==page.LOGIN"></app-login>
+<app-register *ngIf="ui.pageName==page.REGISTER"></app-register>
+<app-new-item *ngIf="ui.pageName==page.NEWITEM"></app-new-item>
+</body>
