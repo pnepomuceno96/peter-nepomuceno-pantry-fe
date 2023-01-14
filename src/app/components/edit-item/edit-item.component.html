@@ -1,0 +1,29 @@
+<h2 mat-dialog-title>Edit Item</h2>
+<mat-dialog-content>
+    <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput type="text" #name [value]="this.data.name">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Image</mat-label>
+        <input matInput type="text" #image [value]="this.data.image">
+    </mat-form-field>
+    <br>
+    <mat-label>Measurement</mat-label>
+    <mat-select matInput required [(value)]="selectedMeasurement" (selectionChange)="updateMeasurement(selectedMeasurement)">
+        <mat-option *ngFor="let meas of measurements" [value]="meas">{{meas}}</mat-option>
+    </mat-select>
+    <br>
+    <mat-form-field>
+        <mat-label>Weight</mat-label>
+        <input matInput type="number" [(ngModel)]="this.data.weight" [value]="this.data.weight">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Calories</mat-label>
+        <input matInput type="number" [(ngModel)]="this.data.calories" [value]="this.data.calories">
+    </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button (click)="cancel()">Cancel</button>
+    <button mat-button mat-dialog-close="true" (click)="newProperties(name.value, image.value)">Submit</button>
+</mat-dialog-actions>

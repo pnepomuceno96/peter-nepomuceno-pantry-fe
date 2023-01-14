@@ -13,7 +13,6 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatTableModule} from '@angular/material/table';
 import {MatDialogModule} from '@angular/material/dialog';
 
-
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -24,6 +23,7 @@ import { ItemComponent } from './components/item/item.component';
 import { UserHeaderComponent } from './components/user-header/user-header.component';
 import { NewRecipeComponent } from './components/new-recipe/new-recipe.component';
 import { AddToQuantityComponent } from './components/add-to-quantity/add-to-quantity.component';
+import { EditItemComponent } from './components/edit-item/edit-item.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +35,8 @@ import { AddToQuantityComponent } from './components/add-to-quantity/add-to-quan
     ItemComponent,
     UserHeaderComponent,
     NewRecipeComponent,
-    AddToQuantityComponent
+    AddToQuantityComponent,
+    EditItemComponent
   ],
   imports: [
     BrowserModule,

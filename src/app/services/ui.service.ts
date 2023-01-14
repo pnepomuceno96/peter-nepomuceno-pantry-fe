@@ -85,8 +85,6 @@ export class UiService {
     this.pageName = Page.RECIPEDETAILS
   }
 
-  
-
   public login(appUser: AppUser): void {
     localStorage.setItem('username', appUser.username)
     localStorage.setItem('password', appUser.password)

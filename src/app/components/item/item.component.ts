@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { UiService } from 'src/app/services/ui.service';
 import { Item } from 'src/data/Item';
 import { AddToQuantityComponent } from '../add-to-quantity/add-to-quantity.component';
+import { EditItemComponent } from '../edit-item/edit-item.component';
 
 @Component({
   selector: 'app-item',
@@ -14,7 +15,7 @@ export class ItemComponent implements OnInit{
   ngOnInit(): void {
     
   }
-  constructor(public ui: UiService, public dialog: MatDialog) {
+  constructor(public ui: UiService, public dialog: MatDialog, public dialog2: MatDialog) {
     this.item = ui.getItem()
   }
 
@@ -29,6 +30,13 @@ export class ItemComponent implements OnInit{
         this.ui.updateItem(this.item)
       }
     })
+  }
+
+  public openEditDialog(): void {
+    const editDialog = this.dialog2.open(EditItemComponent, {data: this.item})
+    
+
+    
   }
 
 

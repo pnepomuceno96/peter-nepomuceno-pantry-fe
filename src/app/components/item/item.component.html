@@ -4,7 +4,6 @@
             {{item.name}}
         </mat-card-title>
         <button mat-button color="primary" (click)="openAddDialog()">Add More</button>
-        <button align="end" mat-button color="warn" (click)="this.ui.deleteItem(item)">Delete</button>
     </mat-card-header>
     <mat-card-content>
         <img class="card-image" mat-card-image src="{{item.image}}">
@@ -14,4 +13,12 @@
         Calories per quantity: {{item.calories}} |
         Weight per quantity: {{item.weight}} lbs
     </mat-card-footer>
+    <mat-card-actions>
+        <button mat-fab color="primary" (click)="this.openEditDialog()">
+            <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-fab color="warn" (click)="this.ui.deleteItem(item)">
+            <mat-icon>delete</mat-icon>
+        </button>
+    </mat-card-actions>
 </mat-card>
