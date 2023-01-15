@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Subject, take } from 'rxjs';
+import { Observable, Subject, take } from 'rxjs';
 import { AppUser } from 'src/data/AppUser';
 import { CookedRecipe } from 'src/data/CookedRecipe';
 import { Ingredient } from 'src/data/Ingredient';
@@ -24,7 +24,8 @@ export class UiService {
     this.loadItems()
     this.loadRecipes()
     this.loadCookedRecipes()
-
+    
+   
     const username = localStorage.getItem('username')
     const password = localStorage.getItem('password')
     if(username !== null && password !== null) {
@@ -41,8 +42,13 @@ export class UiService {
   public pageName: number = Page.HOME
 
   // Below line ({} as Interface) also works for classes
-  public user = {} as AppUser
+  public user =  {} as AppUser
   public users: AppUser[] = []
+  public $user: Subject<AppUser> = new Subject
+
+  public watchUser(): Observable<AppUser> {
+    return this.$user.asObservable()
+  }
   public $users: Subject<AppUser[]> = new Subject
   
   public item = {} as Item
@@ -113,10 +119,16 @@ export class UiService {
     this.pageName = Page.RECIPEDETAILS
   }
 
+  public showEditUser(): void {
+    this.pageName = Page.EDITUSER
+  }
+
   public login(appUser: AppUser): void {
+    if(appUser != null) {
     localStorage.setItem('username', appUser.username)
     localStorage.setItem('password', appUser.password)
     this.loggedIn = true
+  }
   }
 
   public logout(): void {
@@ -253,6 +265,7 @@ export class UiService {
       next: appUsers => {
         console.log(appUsers)
         this.users = appUsers
+        this.$user.next(this.currentUser)
         this.$users.next(appUsers)
       },
       error: err => {
@@ -318,6 +331,9 @@ export class UiService {
     this.http.put<AppUserDTO>(`http://localhost:8080/appusers/${updatedUser.id}`, updatedUser)
     .pipe(take(1)).subscribe({
       next: () => {
+        
+        localStorage.setItem('username', updatedUser.username)
+        localStorage.setItem('password', updatedUser.password)
         this.loadUsers()
       },
       error: err => {

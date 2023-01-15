@@ -5,6 +5,7 @@ export enum Page {
     NEWITEM,
     NEWRECIPE,
     USERS,
+    EDITUSER,
     RECIPES,
     COOKEDRECIPES,
     RECIPEDETAILS
