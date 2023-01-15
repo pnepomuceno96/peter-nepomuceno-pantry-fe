@@ -1,1 +1,31 @@
-<p>new-recipe works!</p>
+<mat-toolbar>New Recipe<button mat-flat-button color="primary"(click)="this.ui.goHome()">Back</button></mat-toolbar>
+<mat-form-field>
+    <mat-label>Name</mat-label>
+    <input required matInput type="text" #name>
+</mat-form-field>
+<mat-form-field>
+    <mat-label>Image URL</mat-label>
+    <input required matInput type="url" #image>
+</mat-form-field>
+<br>
+<mat-form-field>
+    <mat-label>Description</mat-label>
+    <textarea required matInput type="text" #description></textarea>
+</mat-form-field>
+<br>
+<mat-card>
+    <mat-card-header>
+        Add an Ingredient:
+    </mat-card-header>
+    
+    <app-ingredient *ngFor="let ingredient of this.ui.recipeIngredients" [ingredient]="ingredient"></app-ingredient>
+    
+</mat-card>
+<br>
+<mat-card>
+    <mat-card-header>
+        Steps:
+    </mat-card-header>
+    <app-step *ngFor="let step of this.ui.steps" [step]="step"></app-step>
+</mat-card>
+<button mat-flat-button color="primary" (click)="postRecipe(name.value, image.value, description.value)">Submit</button>

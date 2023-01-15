@@ -24,6 +24,8 @@ import { UserHeaderComponent } from './components/user-header/user-header.compon
 import { NewRecipeComponent } from './components/new-recipe/new-recipe.component';
 import { AddToQuantityComponent } from './components/add-to-quantity/add-to-quantity.component';
 import { EditItemComponent } from './components/edit-item/edit-item.component';
+import { StepComponent } from './components/step/step.component';
+import { IngredientComponent } from './components/ingredient/ingredient.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { EditItemComponent } from './components/edit-item/edit-item.component';
     UserHeaderComponent,
     NewRecipeComponent,
     AddToQuantityComponent,
-    EditItemComponent
+    EditItemComponent,
+    StepComponent,
+    IngredientComponent
   ],
   imports: [
     BrowserModule,

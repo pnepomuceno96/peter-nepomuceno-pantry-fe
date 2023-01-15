@@ -28,7 +28,6 @@ export class NewItemComponent implements OnInit{
   public postItem(name: string, image: string) {
     this.newItem.name = name
     this.newItem.image = image
-    console.log(this.newItem.measurement)
     if(this.selectedMeasurement == "N/A"){
       this.newItem.measurement = ""
       console.log("na")

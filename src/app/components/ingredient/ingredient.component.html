@@ -1,0 +1,20 @@
+<mat-card>
+    <mat-card-content>
+        <mat-form-field>
+        <mat-label>Pick an ingredient</mat-label>
+        <mat-select required [(value)]="item" (selectionChange)="this.updateIngredient(item.id, quantity)">
+            <mat-option *ngFor="let item of this.ui.items" [value]="item">{{item.name}}</mat-option>
+        </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Quantity</mat-label>
+            <input matInput required type="number" [(ngModel)]="quantity" (selectionchange)="this.updateIngredient(item.id, quantity)"
+            (keyup)="this.updateIngredient(item.id, quantity)">
+        </mat-form-field>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-fab color="primary" (click)="addIngredient()">
+                <mat-icon>add_circle</mat-icon>
+            </button>
+        </mat-card-actions>
+</mat-card>

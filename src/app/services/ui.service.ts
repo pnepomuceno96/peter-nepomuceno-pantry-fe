@@ -3,10 +3,13 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subject, take } from 'rxjs';
 import { AppUser } from 'src/data/AppUser';
+import { Ingredient } from 'src/data/Ingredient';
 import { Item } from 'src/data/Item';
 import { Page } from 'src/data/Pages';
 import { Recipe } from 'src/data/Recipe';
+import { Step } from 'src/data/Step';
 import { AppUserDTO } from 'src/DTOs/AppUserDTO';
+import { IngredientDTO } from 'src/DTOs/IngredientDTO';
 import { ItemDTO } from 'src/DTOs/ItemDTO';
 import { RecipeDTO } from 'src/DTOs/RecipeDTO';
 
@@ -28,6 +31,7 @@ export class UiService {
   private userUrl = "http://localhost:8080/appusers"
   private itemUrl = "http://localhost:8080/items"
   private recipeUrl = "http://localhost:8080/recipes"
+  private ingredientUrl = "http://localhost:8080/ingredients"
 
   public loggedIn = false
   public pageName: number = Page.HOME
@@ -46,6 +50,16 @@ export class UiService {
   public recipes: Recipe[] = []
   public $recipe: Subject<Recipe> = new Subject
   public $recipes: Subject<Recipe[]> = new Subject
+
+  public ingredientRequest = {} as IngredientDTO
+  public recipeIngredients: IngredientDTO[] = [{} as IngredientDTO]
+  public ingredients: Ingredient[] = []
+  public $ingredient: Subject<Ingredient> = new Subject
+  public $ingredients: Subject<Ingredient[]> = new Subject
+
+  public step = {} as Step
+  public steps: Step[] = [{} as Step]
+  public $steps: Subject<Step[]> = new Subject
 
   public currentUser = {} as AppUser
 
@@ -109,14 +123,10 @@ export class UiService {
     return this.recipe
   }
 
+  
+
   // C
   public postAppUser(user: AppUserDTO): void {
-    // this.newUser = {
-    //   id: 0,
-    //   username: username,
-    //   password: password,
-    //   recipes: []
-    // }
     this.http.post<AppUserDTO>(this.userUrl, user).pipe(take(1))
     .subscribe({
       next: () => {
@@ -145,10 +155,23 @@ export class UiService {
     .subscribe({
       next: () => {
         this.loadRecipes()
+        //TODO: CLEAR INGREDIENT AND STEP COUNT FIELDS
       },
       error: err => [
         this.showError('Oops, something went wrong.')
       ]
+    })
+  }
+
+  public postIngredient(ingredient: IngredientDTO): void {
+    this.http.post<IngredientDTO>(this.ingredientUrl, ingredient).pipe(take(1))
+    .subscribe({
+      next: () => {
+        
+      },
+      error: err => {
+        this.showError('Oops, something went wrong.')
+      }
     })
   }
 
@@ -223,13 +246,26 @@ export class UiService {
     this.http.get<Recipe[]>(this.recipeUrl).pipe(take(1)).subscribe({
       next: recipes => {
         console.log(recipes)
-        this.recipes = this.recipes
+        this.recipes = recipes
         this.$recipes.next(recipes)
       },
       error: err => {
         this.showError('Could not load recipes.')
       }
     }) 
+  }
+
+  public loadIngredients(): void {
+    this.http.get<Ingredient[]>(this.ingredientUrl).pipe(take(1)).subscribe({
+      next: ingredients => {
+        console.log(ingredients)
+        this.ingredients = ingredients
+        this.$ingredients.next(ingredients)
+      },
+      error: err => {
+        this.showError('Could not load ingredients.')
+      }
+    })
   }
 
   // U

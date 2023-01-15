@@ -9,5 +9,6 @@ export interface Recipe {
     ingredients: Ingredient[]
     steps: string[]
     totalWeight: number
+    totalCalories: number
     user: AppUser
 }
