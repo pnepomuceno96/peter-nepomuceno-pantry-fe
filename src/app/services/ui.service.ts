@@ -347,6 +347,7 @@ export class UiService {
     .pipe(take(1)).subscribe({
       next: () => {
         this.loadItems()
+        this.loadRecipes()
       },
       error: err => {
         this.showError('Could not update item.')
