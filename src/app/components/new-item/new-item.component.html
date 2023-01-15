@@ -1,5 +1,5 @@
-<mat-toolbar>
-    New Item
+<mat-toolbar color="primary" class="toolbar">
+    New Item <button id="align-right" mat-flat-button color="warn" (click)="this.ui.goHome()">Back</button>
 </mat-toolbar>
 <mat-form-field>
     <mat-label>Name</mat-label>
@@ -32,4 +32,3 @@
     <input required matInput type="number" [(ngModel)]="weight">
 </mat-form-field>
 <button mat-flat-button color="primary" (click)="postItem(name.value, image.value)">Submit</button>
-<button mat-flat-button color="primary" (click)="this.ui.goHome()">Back</button>

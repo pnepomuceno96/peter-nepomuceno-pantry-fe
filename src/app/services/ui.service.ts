@@ -3,12 +3,14 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subject, take } from 'rxjs';
 import { AppUser } from 'src/data/AppUser';
+import { CookedRecipe } from 'src/data/CookedRecipe';
 import { Ingredient } from 'src/data/Ingredient';
 import { Item } from 'src/data/Item';
 import { Page } from 'src/data/Pages';
 import { Recipe } from 'src/data/Recipe';
 import { Step } from 'src/data/Step';
 import { AppUserDTO } from 'src/DTOs/AppUserDTO';
+import { CookedRecipeDTO } from 'src/DTOs/CookedRecipeDTO';
 import { IngredientDTO } from 'src/DTOs/IngredientDTO';
 import { ItemDTO } from 'src/DTOs/ItemDTO';
 import { RecipeDTO } from 'src/DTOs/RecipeDTO';
@@ -21,6 +23,7 @@ export class UiService {
     this.loadUsers()
     this.loadItems()
     this.loadRecipes()
+    this.loadCookedRecipes()
 
     const username = localStorage.getItem('username')
     const password = localStorage.getItem('password')
@@ -32,6 +35,7 @@ export class UiService {
   private itemUrl = "http://localhost:8080/items"
   private recipeUrl = "http://localhost:8080/recipes"
   private ingredientUrl = "http://localhost:8080/ingredients"
+  private cookedRecipeUrl = "http://localhost:8080/cookedrecipes"
 
   public loggedIn = false
   public pageName: number = Page.HOME
@@ -42,6 +46,7 @@ export class UiService {
   public $users: Subject<AppUser[]> = new Subject
   
   public item = {} as Item
+  public updatedItem = {} as Item
   public items: Item[] = []
   public $item: Subject<Item> = new Subject
   public $items: Subject<Item[]> = new Subject
@@ -56,6 +61,11 @@ export class UiService {
   public ingredients: Ingredient[] = []
   public $ingredient: Subject<Ingredient> = new Subject
   public $ingredients: Subject<Ingredient[]> = new Subject
+
+  public cookedRecipe = {} as CookedRecipe
+  public cookedRecipes: CookedRecipe[] = []
+  public $cookedRecipe: Subject<CookedRecipe> = new Subject
+  public $cookedRecipes: Subject<CookedRecipe[]> = new Subject
 
   public step = {} as Step
   public steps: Step[] = [{} as Step]
@@ -95,6 +105,10 @@ export class UiService {
     this.pageName = Page.RECIPES
   }
 
+  public showCookedRecipes(): void {
+    this.pageName = Page.COOKEDRECIPES
+  }
+
   public showRecipeDetails(): void {
     this.pageName = Page.RECIPEDETAILS
   }
@@ -123,6 +137,10 @@ export class UiService {
     return this.recipe
   }
 
+  public getCookedRecipe(): CookedRecipe {
+    return this.cookedRecipe
+  }
+
   
 
   // C
@@ -147,6 +165,18 @@ export class UiService {
       error: err => {
         this.showError('Item likely already exists. Try adding quantity via the home menu!')
       }
+    })
+  }
+
+  public postCookedRecipe(cookedRecipe: CookedRecipeDTO): void {
+    this.http.post<CookedRecipeDTO>(this.cookedRecipeUrl, cookedRecipe).pipe(take(1))
+    .subscribe({
+      next: () => {
+        this.loadCookedRecipes()
+      },
+      error: err => [
+        this.showError('Oops, something went wrong.')
+      ]
     })
   }
 
@@ -189,6 +219,8 @@ export class UiService {
       }
     })
   }
+
+  
 
   public loadItemById(id: number): void {
     this.http.get<Item>(`http://localhost:8080/items/${id}`)
@@ -255,6 +287,19 @@ export class UiService {
     }) 
   }
 
+  public loadCookedRecipes(): void {
+    this.http.get<CookedRecipe[]>(this.cookedRecipeUrl).pipe(take(1)).subscribe({
+      next: cookedRecipes => {
+        console.log("Cooked Recipes: " + cookedRecipes)
+        this.cookedRecipes = cookedRecipes
+        this.$cookedRecipes.next(cookedRecipes)
+      },
+      error: err => {
+        this.showError('Could not load cooked recipes.')
+      }
+    })
+  }
+
   public loadIngredients(): void {
     this.http.get<Ingredient[]>(this.ingredientUrl).pipe(take(1)).subscribe({
       next: ingredients => {
@@ -305,6 +350,30 @@ export class UiService {
     })
   }
 
+  public updateCookedRecipe(updatedCookedRecipe: CookedRecipeDTO): void {
+    this.http.put<CookedRecipeDTO>(`http://localhost:8080/cookedrecipes/${updatedCookedRecipe.id}`, updatedCookedRecipe)
+    .pipe(take(1)).subscribe({
+      next: () => {
+        this.loadCookedRecipes()
+      },
+      error: err => {
+        this.showError('Could not updated cooked recipe.')
+      }
+    })
+  }
+
+  private usedItem = {} as ItemDTO
+  public subtractIngredients(ingredients: Ingredient[]): void {
+    for(let i= 0; i<ingredients.length; i++) {
+      this.usedItem = ingredients[i].item
+      console.log("this.used item = " + this.usedItem)
+      console.log("ingredients[i].quantity = " + ingredients[i].quantity)
+      console.log("this.usedItem.quantity = " + this.usedItem.quantity)
+      this.usedItem.quantity = this.usedItem.quantity - ingredients[i].quantity
+      this.updateItem(this.usedItem)
+    }
+  }
+
   // D
   public deleteUser(user: AppUser): void {
     this.http.delete(`http://localhost:8080/appusers/${user.id}`)
@@ -335,6 +404,18 @@ export class UiService {
     .pipe(take(1)).subscribe({
       next: () => {
         this.loadRecipes()
+      },
+      error: err => {
+        this.showError('Oops, something went wrong.')
+      }
+    })
+  }
+
+  public deleteCookedRecipe(cookedRecipe: CookedRecipe): void {
+    this.http.delete(`http://localhost:8080/cookedrecipes/${cookedRecipe.id}`)
+    .pipe(take(1)).subscribe({
+      next: () => {
+        this.loadCookedRecipes()
       },
       error: err => {
         this.showError('Oops, something went wrong.')

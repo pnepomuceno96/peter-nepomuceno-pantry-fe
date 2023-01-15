@@ -1,8 +1,12 @@
 <mat-toolbar color="primary" class="toolbar">
     <span>Welcome to your Pantry, {{ui.currentUser.username}}!</span>
     <button mat-flat-button color="primary" (click)="ui.showNewItem()">Add an Item</button>
+    <button mat-flat-button color="primary" (click)="ui.showCookedRecipes()">All Cooked Recipes</button>
     <div id="align-right">
+        <button mat-flat-button column="accent" (click)="ui.showRecipes()">My Recipes</button>
+        <div id="column">
         <button mat-flat-button color="accent" (click)="ui.showNewRecipe()">New Recipe</button>
         <button mat-flat-button color="primary" (click)="ui.logout()">Logout</button>
+        </div>   
     </div>
 </mat-toolbar>

@@ -23,7 +23,7 @@ export class EditItemComponent implements OnInit{
   // public id = this.data.id
   
   public selectedMeasurement = ""
-  public measurements = ['cups', 'tsps', 'tbsps', 'pints', 'N/A']
+  public measurements = ['cups', 'tsps', 'tbsps', 'pints', 'slices', 'N/A']
   public updateMeasurement(m: string) {
     this.selectedMeasurement = m
   }

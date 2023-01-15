@@ -1,0 +1,4 @@
+<mat-toolbar color="primary" class="toolbar">
+    Cooked Recipes<button id="align-right" mat-flat-button color="warn" (click)="this.ui.goHome()">Back</button>
+</mat-toolbar>
+<app-cooked-recipe *ngFor="let cookedRecipe of this.ui.cookedRecipes" [cookedRecipe]="cookedRecipe"></app-cooked-recipe>

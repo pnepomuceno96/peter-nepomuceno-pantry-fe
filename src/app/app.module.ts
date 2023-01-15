@@ -12,6 +12,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatTableModule} from '@angular/material/table';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -26,6 +27,10 @@ import { AddToQuantityComponent } from './components/add-to-quantity/add-to-quan
 import { EditItemComponent } from './components/edit-item/edit-item.component';
 import { StepComponent } from './components/step/step.component';
 import { IngredientComponent } from './components/ingredient/ingredient.component';
+import { RecipesComponent } from './components/recipes/recipes.component';
+import { RecipeComponent } from './components/recipe/recipe.component';
+import { CookedRecipesComponent } from './components/cooked-recipes/cooked-recipes.component';
+import { CookedRecipeComponent } from './components/cooked-recipe/cooked-recipe.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +45,11 @@ import { IngredientComponent } from './components/ingredient/ingredient.componen
     AddToQuantityComponent,
     EditItemComponent,
     StepComponent,
-    IngredientComponent
+    IngredientComponent,
+    RecipesComponent,
+    RecipeComponent,
+    CookedRecipesComponent,
+    CookedRecipeComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +65,8 @@ import { IngredientComponent } from './components/ingredient/ingredient.componen
     MatFormFieldModule,
     MatTableModule,
     MatDialogModule,
-    FormsModule
+    FormsModule,
+    MatExpansionModule
   ],
   providers: [],
   bootstrap: [AppComponent]

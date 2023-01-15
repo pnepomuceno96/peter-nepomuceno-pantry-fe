@@ -7,7 +7,7 @@ export interface Recipe {
     description: string
     image: string
     ingredients: Ingredient[]
-    steps: string[]
+    steps: string
     totalWeight: number
     totalCalories: number
     user: AppUser

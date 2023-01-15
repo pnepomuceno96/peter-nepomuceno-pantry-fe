@@ -1,0 +1,25 @@
+<mat-card class="less-wide">
+    <mat-card-header><h2>{{recipe.name}}</h2></mat-card-header>
+    <img mat-card-image class="smaller-img" src={{recipe.image}} alt="recipe image">
+    <br>
+    <mat-card-content>
+        {{recipe.description}}
+    </mat-card-content>
+    <br>
+    <mat-card-content>
+        <h4>Ingredients:</h4>
+        
+        <div *ngFor="let i of recipe.ingredients">- {{i.quantity}} {{i.item.measurement}} of {{i.item.name}}</div>
+    </mat-card-content>
+    <br>
+    <mat-card-content>
+        <h4>Steps:</h4>
+        {{recipe.steps}}
+    </mat-card-content>
+    <br>
+    <mat-card-footer align="right">{{recipe.totalCalories}} calories | {{recipe.totalWeight}} lbs</mat-card-footer>
+    <mat-card-actions id="align-right">
+        <button mat-flat-button color="warn" (click)="deleteRecipe()">Delete</button>
+        <button mat-flat-button color="primary" (click)="cook()">Cook this Recipe</button>
+    </mat-card-actions>
+</mat-card>

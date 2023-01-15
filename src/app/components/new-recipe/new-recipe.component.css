@@ -1,0 +1,8 @@
+.toolbar {
+    height: 5rem;
+}
+
+#align-right {
+    display: flex;
+    margin-left: auto;
+}

@@ -1,4 +1,6 @@
-<mat-toolbar>New Recipe<button mat-flat-button color="primary"(click)="this.ui.goHome()">Back</button></mat-toolbar>
+<mat-toolbar color="primary" class="toolbar">
+    New Recipe<button id="align-right" mat-flat-button color="warn" (click)="this.ui.goHome()">Back</button>
+</mat-toolbar>
 <mat-form-field>
     <mat-label>Name</mat-label>
     <input required matInput type="text" #name>

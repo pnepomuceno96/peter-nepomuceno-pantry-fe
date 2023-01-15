@@ -1,0 +1,12 @@
+.smaller-img {
+    max-width: 21rem;
+}
+
+.less-wide {
+    width: 25rem;
+}
+
+#align-right {
+    display: flex;
+    margin-left: auto;
+}
