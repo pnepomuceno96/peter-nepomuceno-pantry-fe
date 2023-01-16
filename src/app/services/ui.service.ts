@@ -167,6 +167,10 @@ export class UiService {
     return this.$recipes.asObservable()
   }
 
+  public watchItem(): Observable<Item> {
+    return this.$item.asObservable()
+  }
+
   // C
   public postAppUser(user: AppUserDTO): void {
     this.http.post<AppUserDTO>(this.userUrl, user).pipe(take(1))
@@ -415,14 +419,29 @@ export class UiService {
   private usedItem = {} as ItemDTO
   public subtractIngredients(ingredients: Ingredient[]): void {
     for(let i= 0; i<ingredients.length; i++) {
-      this.loadItemById(ingredients[i].itemId)
-      this.usedItem = this.getItem()
-      console.log("this.used item = " + this.usedItem)
-      console.log("ingredients[i].quantity = " + ingredients[i].quantity)
-      console.log("this.usedItem.quantity = " + this.usedItem.quantity)
-      this.usedItem.quantity = this.usedItem.quantity - ingredients[i].quantity
-      this.updateItem(this.usedItem)
+      console.log("ingredients[i].itemNo: " + ingredients[i].itemNo)
+      this.loadAndSubtract(ingredients[i].itemNo, ingredients[i].quantity)
+      
     }
+  }
+
+  public loadAndSubtract(itemId: number, difference: number): void {
+    console.log("Difference = " + difference)
+    this.http.get<Item>(`http://localhost:8080/items/${itemId}`)
+    .pipe(take(1)).subscribe({
+      next: item => {
+        this.usedItem = item
+        console.log("this.usedItem.quantity = " + this.usedItem.quantity)
+        console.log("item.quantity = " + item.quantity)
+        this.usedItem.quantity = this.usedItem.quantity - difference
+
+        this.updateItem(this.usedItem)
+      },
+      error: err => {
+        this.showError('Operation failed.')
+      }
+    })
+
   }
 
   // D
