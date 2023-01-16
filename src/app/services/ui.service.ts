@@ -76,6 +76,9 @@ export class UiService {
 
   public currentUser = {} as AppUser
 
+  public continueCook = false
+  public cookOk = false
+
   public showError(message: string): void {
     this.snackBar.open(message, undefined, {duration: 4000})
   }
@@ -169,6 +172,10 @@ export class UiService {
 
   public watchItem(): Observable<Item> {
     return this.$item.asObservable()
+  }
+
+  public watchItems(): Observable<Item[]> {
+    return this.$items.asObservable()
   }
 
   // C
@@ -379,6 +386,19 @@ export class UiService {
     })
   }
 
+  public updatedIngredients(ingredient: IngredientDTO): void {
+    this.http.put<ItemDTO>(`http://localhost:8080/items/${ingredient.id}`, ingredient)
+    .pipe(take(1)).subscribe({
+      next: () => {
+        this.loadIngredients()
+        this.loadRecipes()
+      },
+      error: err => {
+        this.showError('Could not update ingredient.')
+      }
+    })
+  }
+
   public updateItem(updatedItem: ItemDTO): void {
     this.http.put<ItemDTO>(`http://localhost:8080/items/${updatedItem.id}`, updatedItem)
     .pipe(take(1)).subscribe({
@@ -416,33 +436,81 @@ export class UiService {
     })
   }
 
-  private usedItem = {} as ItemDTO
-  public subtractIngredients(ingredients: Ingredient[]): void {
-    for(let i= 0; i<ingredients.length; i++) {
-      console.log("ingredients[i].itemNo: " + ingredients[i].itemNo)
-      this.loadAndSubtract(ingredients[i].itemNo, ingredients[i].quantity)
-      
-    }
-  }
-
-  public loadAndSubtract(itemId: number, difference: number): void {
-    console.log("Difference = " + difference)
-    this.http.get<Item>(`http://localhost:8080/items/${itemId}`)
+  
+  private cookedRecipeRequest = {} as CookedRecipeDTO
+  public subtractIngredients(recipe: Recipe): void {
+    this.http.put<ItemDTO[]>("http://localhost:8080/items", recipe)
     .pipe(take(1)).subscribe({
-      next: item => {
-        this.usedItem = item
-        console.log("this.usedItem.quantity = " + this.usedItem.quantity)
-        console.log("item.quantity = " + item.quantity)
-        this.usedItem.quantity = this.usedItem.quantity - difference
-
-        this.updateItem(this.usedItem)
+      next: () => {
+        this.loadItems()
+        
+        this.cookedRecipeRequest.name = recipe.name
+        this.cookedRecipeRequest.description = recipe.description
+        this.cookedRecipeRequest.image = recipe.image
+        this.cookedRecipeRequest.weight = recipe.totalWeight
+        this.cookedRecipeRequest.calories = recipe.totalCalories
+        this.postCookedRecipe(this.cookedRecipeRequest)
       },
       error: err => {
-        this.showError('Operation failed.')
+        this.showError('Insufficient ingredients.')
       }
     })
-
+    
   }
+
+  // public checkIngredient(itemId: number, difference: number): boolean | null {
+  //   this.http.get<Item>(`http://localhost:8080/items/${itemId}`)
+  //     .pipe(take(1)).subscribe({
+  //       next: item => {
+  //         this.usedItem = item
+  //         console.log("this.usedItem.quantity = " + this.usedItem.quantity)
+  //         console.log("item.quantity = " + item.quantity)
+  
+  //         //Checks if user has enough ingredients for the recipe
+  //         if(this.usedItem.quantity >= difference) {
+  //           console.log("true")
+  //           this.usedItem.quantity = this.usedItem.quantity - difference
+  //           this.updateItem(this.usedItem)
+  //           return true
+  //         } else {
+  //           console.log("false")
+  //           this.showError("Not enough ingredients!")
+  //           return false
+            
+  //         }},
+  //       error: err => {
+  //         this.showError('Item no longer exists.')
+  //         return false
+  //       }})      
+  //       return null
+      
+      
+  // }
+  
+
+  // public loadAndSubtract(itemId: number, difference: number): boolean {
+  //   console.log("Difference = " + difference)
+  //   this.http.get<Item>(`http://localhost:8080/items/${itemId}`)
+  //   .pipe(take(1)).subscribe({
+  //     next: item => {
+  //       this.usedItem = item
+  //       console.log("this.usedItem.quantity = " + this.usedItem.quantity)
+  //       console.log("item.quantity = " + item.quantity)
+
+  //       //Checks if user has enough ingredients for the recipe
+  //       if(this.usedItem.quantity >= difference) {
+  //         this.usedItem.quantity = this.usedItem.quantity - difference
+  //         this.updateItem(this.usedItem)
+  //         this.cookOk = true
+  //       } else {
+  //         this.showError("Not enough ingredients!")
+  //         this.cookOk = false
+  //       }},
+  //     error: err => {
+  //       this.showError('Item no longer exists.')
+  //     }})
+  //     return this.cookOk
+  // }
 
   // D
   public deleteUser(user: AppUser): void {

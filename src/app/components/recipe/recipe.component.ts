@@ -1,5 +1,6 @@
 import { ThisReceiver } from '@angular/compiler';
 import { Component, Input, OnInit } from '@angular/core';
+import { take } from 'rxjs';
 import { UiService } from 'src/app/services/ui.service';
 import { AppUser } from 'src/data/AppUser';
 import { Item } from 'src/data/Item';
@@ -22,22 +23,23 @@ export class RecipeComponent implements OnInit {
   }
   @Input() recipe: Recipe
 
-  private cookedRecipe = {} as CookedRecipeDTO
+  private cookedRecipeRequest = {} as CookedRecipeDTO
   public deleteRecipe(): void {
     this.ui.deleteRecipe(this.recipe)
   }
 
+  // public checkIngredients(): boolean {
+  //   for (var i = 0; i < this.recipe.ingredients.length; i++) {
+  //     this.ui.loadItemById(this.recipe.ingredients[i].itemNo)
+  //     if(this.recipe.ingredients) {
+
+  //     }
+  //   }
+  //   return true
+  // }
+
   public cook(): void {
-    this.cookedRecipe.name = this.recipe.name
-    this.cookedRecipe.description = this.recipe.description
-    this.cookedRecipe.image = this.recipe.image
-    this.cookedRecipe.weight = this.recipe.totalWeight
-    this.cookedRecipe.calories = this.recipe.totalCalories
-
-    // TODO: RUN CHECK TO SEE IF USER HAS ENOUGH INGREDIENTS FOR RECIPE
-
-    this.ui.postCookedRecipe(this.cookedRecipe)
-    this.ui.subtractIngredients(this.recipe.ingredients)
+    this.ui.subtractIngredients(this.recipe)
     
   }
 }
