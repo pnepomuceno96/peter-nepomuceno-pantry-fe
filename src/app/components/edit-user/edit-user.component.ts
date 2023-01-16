@@ -35,4 +35,9 @@ export class EditUserComponent implements OnInit {
     this.ui.goHome()
   }
 
+  public onDelete(): void {
+    this.ui.deleteUser(this.ui.currentUser)
+    
+  }
+
 }

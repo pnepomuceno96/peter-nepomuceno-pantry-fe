@@ -36,8 +36,11 @@ export class ItemComponent implements OnInit{
     const editDialog = this.dialog2.open(EditItemComponent, {data: this.item}) 
   }
 
-  public tryDelete(): void {
-    //for this.ui.
-  }
+  // public tryDelete(): void {
+  //   // TODO: if item belongs on a recipe, remove it from ui.items list and bring quantity to 0.
+  //   // otherwise, delete as normal.(Cop out)
+
+  //   // Alternatively, redo the Ingredient model. This will be hard, but this is the way that is more likely for me to pass.
+  // }
 
 }

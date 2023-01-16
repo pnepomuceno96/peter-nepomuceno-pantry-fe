@@ -130,8 +130,8 @@ export class UiService {
 
   public login(appUser: AppUser): void {
     if(appUser != null) {
-    localStorage.setItem('username', appUser.username)
-    localStorage.setItem('password', appUser.password)
+      localStorage.setItem('username', appUser.username)
+      localStorage.setItem('password', appUser.password)
     this.loggedIn = true
   }
   }
@@ -140,6 +140,7 @@ export class UiService {
     localStorage.clear()
     this.currentUser = {} as AppUser
     this.loggedIn = false
+    this.goHome()
   }
 
   public getUser(): AppUser {
@@ -211,6 +212,7 @@ export class UiService {
         
         // After posting a recipe, we reload the user to load our changes
         this.loadUserById(this.currentUser.id)
+
         //TODO: CLEAR INGREDIENT AND STEP COUNT FIELDS
         
       },
@@ -237,11 +239,16 @@ export class UiService {
     this.http.get<AppUser>(`http://localhost:8080/appusers?username=${username}&password=${password}`)
     .pipe(take(1)).subscribe({
       next: appUser => {
+        console.log("Before " + this.currentUser)
         this.login(appUser)
+
         this.currentUser = appUser
+        console.log("Login successful?")
+        console.log("After: " + this.currentUser)
         this.goHome()
       },
       error: err => {
+        console.log('Login failed.')
         this.showError('Invalid login.')
       }
     })
@@ -408,7 +415,8 @@ export class UiService {
   private usedItem = {} as ItemDTO
   public subtractIngredients(ingredients: Ingredient[]): void {
     for(let i= 0; i<ingredients.length; i++) {
-      this.usedItem = ingredients[i].item
+      this.loadItemById(ingredients[i].itemId)
+      this.usedItem = this.getItem()
       console.log("this.used item = " + this.usedItem)
       console.log("ingredients[i].quantity = " + ingredients[i].quantity)
       console.log("this.usedItem.quantity = " + this.usedItem.quantity)
@@ -422,7 +430,9 @@ export class UiService {
     this.http.delete(`http://localhost:8080/appusers/${user.id}`)
     .pipe(take(1)).subscribe({
       next: () => {
+        this.logout()
         this.loadUsers()
+
       },
       error: err => {
         this.showError('Oops, something went wrong.')
