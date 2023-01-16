@@ -31,6 +31,7 @@ export class UiService {
     if(username !== null && password !== null) {
       this.loadUser(username, password)
     }
+    
   }
   private userUrl = "http://localhost:8080/appusers"
   private itemUrl = "http://localhost:8080/items"
@@ -45,10 +46,6 @@ export class UiService {
   public user =  {} as AppUser
   public users: AppUser[] = []
   public $user: Subject<AppUser> = new Subject
-
-  public watchUser(): Observable<AppUser> {
-    return this.$user.asObservable()
-  }
   public $users: Subject<AppUser[]> = new Subject
   
   public item = {} as Item
@@ -123,6 +120,14 @@ export class UiService {
     this.pageName = Page.EDITUSER
   }
 
+  public checkLogin(): void {
+    const username = localStorage.getItem('username')
+    const password = localStorage.getItem('password')
+    if(username !== null && password !== null) {
+      this.loadUser(username, password)
+    }
+  }
+
   public login(appUser: AppUser): void {
     if(appUser != null) {
     localStorage.setItem('username', appUser.username)
@@ -153,7 +158,13 @@ export class UiService {
     return this.cookedRecipe
   }
 
-  
+  public watchUser(): Observable<AppUser> {
+    return this.$user.asObservable()
+  }
+
+  public watchRecipes(): Observable<Recipe[]> {
+    return this.$recipes.asObservable()
+  }
 
   // C
   public postAppUser(user: AppUserDTO): void {
@@ -197,7 +208,11 @@ export class UiService {
     .subscribe({
       next: () => {
         this.loadRecipes()
+        
+        // After posting a recipe, we reload the user to load our changes
+        this.loadUserById(this.currentUser.id)
         //TODO: CLEAR INGREDIENT AND STEP COUNT FIELDS
+        
       },
       error: err => [
         this.showError('Oops, something went wrong.')
@@ -232,7 +247,18 @@ export class UiService {
     })
   }
 
-  
+  public loadUserById(id: number): void {
+    this.http.get<AppUser>(`http://localhost:8080/appusers/${id}`)
+    .pipe(take(1)).subscribe({
+      next: appUser => {
+        this.currentUser = appUser
+        this.$user.next(appUser)
+      },
+      error: err => {
+        this.showError('Could not find user.')
+      }
+    })
+  }
 
   public loadItemById(id: number): void {
     this.http.get<Item>(`http://localhost:8080/items/${id}`)
@@ -417,10 +443,11 @@ export class UiService {
   }
 
   public deleteRecipe(recipe: Recipe): void {
-    this.http.delete(`http://localhost:8080/recipes/${recipe.id}`)
+    this.http.delete(`http://localhost:8080/recipes/${this.currentUser.id}/${recipe.id}`)
     .pipe(take(1)).subscribe({
       next: () => {
         this.loadRecipes()
+        this.loadUserById(this.currentUser.id)
       },
       error: err => {
         this.showError('Oops, something went wrong.')

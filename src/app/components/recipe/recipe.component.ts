@@ -33,6 +33,9 @@ export class RecipeComponent implements OnInit {
     this.cookedRecipe.image = this.recipe.image
     this.cookedRecipe.weight = this.recipe.totalWeight
     this.cookedRecipe.calories = this.recipe.totalCalories
+
+    // TODO: RUN CHECK TO SEE IF USER HAS ENOUGH INGREDIENTS FOR RECIPE
+
     this.ui.postCookedRecipe(this.cookedRecipe)
     this.ui.subtractIngredients(this.recipe.ingredients)
     

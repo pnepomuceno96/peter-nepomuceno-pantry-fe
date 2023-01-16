@@ -10,5 +10,5 @@ export interface Recipe {
     steps: string
     totalWeight: number
     totalCalories: number
-    user: AppUser
+    //user: AppUser
 }

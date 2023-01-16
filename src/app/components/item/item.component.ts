@@ -33,12 +33,11 @@ export class ItemComponent implements OnInit{
   }
 
   public openEditDialog(): void {
-    const editDialog = this.dialog2.open(EditItemComponent, {data: this.item})
-    
-
-    
+    const editDialog = this.dialog2.open(EditItemComponent, {data: this.item}) 
   }
 
-
+  public tryDelete(): void {
+    //for this.ui.
+  }
 
 }
