@@ -1,0 +1,20 @@
+<h2 mat-dialog-title>Edit Recipe</h2>
+<mat-dialog-content>
+    <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput type="text" #name [value]="this.data.name">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Image</mat-label>
+        <input matInput type="text" #image [value]="this.data.image">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <mat-label>Description</mat-label>
+        <input matInput type="text" #description [value]="this.data.description">
+    </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button (click)="cancel()">Cancel</button>
+    <button mat-button mat-dialog-close="true" (click)="this.updateRecipe(name.value, image.value, description.value)">Submit</button>
+</mat-dialog-actions>

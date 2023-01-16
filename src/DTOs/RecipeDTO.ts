@@ -7,5 +7,7 @@ export interface RecipeDTO {
     image: string
     ingredients: IngredientDTO[]
     steps: string[]
+    totalWeight: number
+    totalCalories: number
     userId: number
 }

@@ -1,5 +1,8 @@
 <mat-card class="less-wide">
-    <mat-card-header><h2>{{recipe.name}}</h2></mat-card-header>
+    <mat-card-header>
+        <mat-card-title>{{recipe.name}}</mat-card-title>
+        <button id="align-right" mat-flat-button color="primary" (click)="openEditRecipeDialog()">Edit</button>
+    </mat-card-header>
     <img mat-card-image class="smaller-img" src={{recipe.image}} alt="recipe image">
     <br>
     <mat-card-content>

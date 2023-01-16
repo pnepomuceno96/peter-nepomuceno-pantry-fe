@@ -225,6 +225,8 @@ export class UiService {
         this.loadUserById(this.currentUser.id)
 
         //TODO: CLEAR INGREDIENT AND STEP COUNT FIELDS
+        this.steps = [{} as Step]
+        this.recipeIngredients = [{} as IngredientDTO]
         
       },
       error: err => [
