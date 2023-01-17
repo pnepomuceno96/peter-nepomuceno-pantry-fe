@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { UiService } from 'src/app/services/ui.service';
 import { CookedRecipe } from 'src/data/CookedRecipe';
+import { EditCookedRecipeComponent } from '../edit-cooked-recipe/edit-cooked-recipe.component';
 
 @Component({
   selector: 'app-cooked-recipe',
@@ -11,12 +13,15 @@ export class CookedRecipeComponent implements OnInit {
   ngOnInit(): void {
     
   }
-  constructor(public ui: UiService) {
+  constructor(public ui: UiService, public dialog: MatDialog) {
     this.cookedRecipe = ui.cookedRecipe
+
   }
   @Input() cookedRecipe: CookedRecipe
 
-  public eat(): void {
-    
+
+
+  public openDialog(): void {
+    const dialog = this.dialog.open(EditCookedRecipeComponent, {data: this.cookedRecipe})
   }
 }

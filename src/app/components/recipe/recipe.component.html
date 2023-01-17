@@ -25,8 +25,10 @@
     <mat-card-footer align="right" class="sub-card">
         {{recipe.totalCalories}} calories | {{recipe.totalWeight}} lbs
     </mat-card-footer>
-    <mat-card-actions id="align-right">
+    <mat-card-actions>
+        <div id="align-right">
         <button mat-flat-button color="warn" (click)="deleteRecipe()">Delete</button>
         <button mat-flat-button color="primary" (click)="cook()">Cook this Recipe</button>
+    </div>
     </mat-card-actions>
 </mat-card>

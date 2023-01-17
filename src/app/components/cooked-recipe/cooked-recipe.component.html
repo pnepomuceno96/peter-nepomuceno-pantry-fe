@@ -13,7 +13,10 @@
     </mat-card-content>
     <br>
     <mat-card-footer align="right" class="sub-card">{{cookedRecipe.calories}} calories | {{cookedRecipe.weight}} lbs</mat-card-footer>
-    <mat-card-actions id="align-right">
+    <mat-card-actions>
+        <div id="align-right">
+        <button mat-flat-button color="primary" (click)="this.openDialog()">Edit</button>
         <button mat-flat-button color="primary" (click)="this.ui.deleteCookedRecipe(cookedRecipe)">Eat</button>
+    </div>
     </mat-card-actions>
 </mat-card>

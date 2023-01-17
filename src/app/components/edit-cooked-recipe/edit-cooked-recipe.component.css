@@ -1,0 +1,8 @@
+.sub-card {
+    background-color: rgb(255, 224, 171);
+}
+
+#align-right {
+    display: flex;
+    margin-left: auto;
+}
