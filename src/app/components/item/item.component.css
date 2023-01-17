@@ -1,8 +1,24 @@
-.less-wide {
-    width: 22rem;
-}
+
 
 .card-image {
     max-width: 21rem;
     /* margin-left: 50px; */
 }
+
+
+.card {
+    background-image: url("http://images.freecreatives.com/wp-content/uploads/2016/03/Fantastic-Burlap-Texture-For-Download.jpg");
+    display: inline-block;
+    margin: 1rem;
+    width: 22rem;
+    vertical-align: top;
+}
+
+.sub-card {
+    background-color: rgb(255, 224, 171);
+}
+
+.button-margin {
+    margin: 10px;
+}
+

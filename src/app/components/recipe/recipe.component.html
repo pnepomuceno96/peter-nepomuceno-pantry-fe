@@ -1,26 +1,30 @@
-<mat-card class="less-wide">
+<mat-card class="card">
     <mat-card-header>
-        <mat-card-title>{{recipe.name}}</mat-card-title>
+        <mat-card-title class="sub-card">{{recipe.name}}</mat-card-title>
         <button id="align-right" mat-flat-button color="primary" (click)="openEditRecipeDialog()">Edit</button>
     </mat-card-header>
     <img mat-card-image class="smaller-img" src={{recipe.image}} alt="recipe image">
     <br>
     <mat-card-content>
+    <mat-card class="sub-card">
         {{recipe.description}}
+    </mat-card>
     </mat-card-content>
     <br>
     <mat-card-content>
-        <h4>Ingredients:</h4>
+        <mat-card class="sub-card"><h4>Ingredients:</h4></mat-card>
         
-        <div *ngFor="let i of recipe.ingredients">- {{i.quantity}} {{i.measurement}} of {{i.name}}</div>
+        <mat-card class="sub-card" *ngFor="let i of recipe.ingredients">- {{i.quantity}} {{i.measurement}} of {{i.name}}</mat-card>
     </mat-card-content>
     <br>
     <mat-card-content>
-        <h4>Steps:</h4>
-        {{recipe.steps}}
+        <mat-card class="sub-card"><h4>Steps:</h4></mat-card>
+        <mat-card class="sub-card" *ngFor="let s of this.steps">{{this.steps.indexOf(s) + 1}}. {{s}}</mat-card>
     </mat-card-content>
     <br>
-    <mat-card-footer align="right">{{recipe.totalCalories}} calories | {{recipe.totalWeight}} lbs</mat-card-footer>
+    <mat-card-footer align="right" class="sub-card">
+        {{recipe.totalCalories}} calories | {{recipe.totalWeight}} lbs
+    </mat-card-footer>
     <mat-card-actions id="align-right">
         <button mat-flat-button color="warn" (click)="deleteRecipe()">Delete</button>
         <button mat-flat-button color="primary" (click)="cook()">Cook this Recipe</button>

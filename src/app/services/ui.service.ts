@@ -170,6 +170,10 @@ export class UiService {
     return this.$user.asObservable()
   }
 
+  public watchRecipe(): Observable<Recipe> {
+    return this.$recipe.asObservable()
+  }
+
   public watchRecipes(): Observable<Recipe[]> {
     return this.$recipes.asObservable()
   }

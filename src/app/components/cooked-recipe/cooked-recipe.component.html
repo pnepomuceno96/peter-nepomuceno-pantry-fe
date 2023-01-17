@@ -1,12 +1,18 @@
-<mat-card class="less-wide">
-    <mat-card-header><h2>{{cookedRecipe.name}}</h2></mat-card-header>
+<mat-card class="card">
+    <mat-card-header>
+        <mat-card-title class="sub-card">
+            {{cookedRecipe.name}}
+        </mat-card-title>
+    </mat-card-header>
     <img mat-card-image class="smaller-img" src={{cookedRecipe.image}} alt="recipe image">
     <br>
     <mat-card-content>
+        <mat-card class="sub-card">
         {{cookedRecipe.description}}
+    </mat-card>
     </mat-card-content>
     <br>
-    <mat-card-footer align="right">{{cookedRecipe.calories}} calories | {{cookedRecipe.weight}} lbs</mat-card-footer>
+    <mat-card-footer align="right" class="sub-card">{{cookedRecipe.calories}} calories | {{cookedRecipe.weight}} lbs</mat-card-footer>
     <mat-card-actions id="align-right">
         <button mat-flat-button color="primary" (click)="this.ui.deleteCookedRecipe(cookedRecipe)">Eat</button>
     </mat-card-actions>

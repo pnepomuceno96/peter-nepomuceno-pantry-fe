@@ -1,17 +1,21 @@
-<mat-card class = less-wide>
+<mat-card class="card">
     <mat-card-header>
-        <mat-card-title>
+        
+        <mat-card-title class="sub-card">
             {{item.name}}
         </mat-card-title>
-        <button mat-button color="primary" (click)="openAddDialog()">Add More</button>
+        <button class="button-margin" mat-flat-button color="primary" (click)="openAddDialog()">Add More</button>
+    
     </mat-card-header>
     <mat-card-content>
         <img class="card-image" mat-card-image src="{{item.image}}">
     </mat-card-content>
     <mat-card-footer>
+        <mat-card class="sub-card">
         Quantity: {{item.quantity}} {{item.measurement}} |
         Calories per quantity: {{item.calories}} |
         Weight per quantity: {{item.weight}} lbs
+    </mat-card>
     </mat-card-footer>
     <mat-card-actions>
         <button mat-fab color="primary" (click)="this.openEditDialog()">

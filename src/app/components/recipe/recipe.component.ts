@@ -17,13 +17,19 @@ import { EditRecipeComponent } from '../edit-recipe/edit-recipe.component';
 })
 export class RecipeComponent implements OnInit {
   ngOnInit(): void {
-    
+    this.steps = this.recipe.steps.split("\n| ")
   }
   constructor(public ui: UiService, public dialog: MatDialog) {
     this.recipe = ui.getRecipe()///this.ui.recipe
+    // this.ui.watchRecipes().subscribe({next: recipes => {
+    //   this.steps = recipes.steps.split("\n| ")
+    //   console.log("steps = " + this.steps)
+    // }})
     
+    //this.steps = this.recipe.steps.split("\n| ")
   }
   @Input() recipe: Recipe
+  public steps: string[] = []
 
   public deleteRecipe(): void {
     this.ui.deleteRecipe(this.recipe)

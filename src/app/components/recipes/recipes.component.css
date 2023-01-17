@@ -6,3 +6,8 @@
     display: flex;
     margin-left: auto;
 }
+
+.card {
+    display: flex;
+    padding: 1rem;
+}
