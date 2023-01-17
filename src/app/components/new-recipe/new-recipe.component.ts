@@ -33,13 +33,17 @@ export class NewRecipeComponent implements OnInit {
 
   private steps: string[] = []
   public postRecipe(name: string, image: string, description: string): void {
-    if(name != '' && image != '' && description != '' && 
-    this.steps.length > 0) {
+    if(name != '' && image != '' && description != '') {
     this.newRecipe.name = name
     this.newRecipe.image = image
     this.newRecipe.description = description
     for (var i = 0; i < this.ui.steps.length; i++) {
-      this.steps.push(this.ui.steps[i].step);
+      if(this.ui.steps[i].step != '') {
+        this.steps.push(this.ui.steps[i].step);
+      } else {
+        this.ui.showError("Incomplete steps.")
+        
+      }
     }
     this.newRecipe.steps = this.steps
     this.newRecipe.userId = this.ui.currentUser.id

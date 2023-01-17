@@ -26,7 +26,7 @@ export class NewItemComponent implements OnInit{
   }
 
   public postItem(name: string, image: string) {
-    if(name != '' && image != '' && this.selectedMeasurement != '' && this.quantity > 0 && this.calories != null && this.weight != null) {
+    if(name != '' && image != '' && this.selectedMeasurement != '' && this.quantity > 0 && this.calories != null && this.weight != null && this.weight > 0) {
     this.newItem.name = name
     this.newItem.image = image
     if(this.selectedMeasurement == "N/A"){

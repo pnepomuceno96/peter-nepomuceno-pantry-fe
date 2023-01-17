@@ -17,7 +17,10 @@ export class EditItemComponent implements OnInit{
   
 
   constructor(public ui: UiService, private dialog: MatDialogRef<ItemComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Item) {}
+    @Inject(MAT_DIALOG_DATA) public data: Item) {
+      this.updatedWeight = this.data.weight
+      this.updatedCalories = this.data.calories
+    }
 
   // private newItem = {} as ItemDTO
   // public id = this.data.id
@@ -28,15 +31,26 @@ export class EditItemComponent implements OnInit{
     this.selectedMeasurement = m
   }
 
+  public updatedWeight = 0
+  public updatedCalories = 0
+
   public cancel() {
     this.dialog.close()
   }
 
   public newProperties(name: string, image: string) {
-    if(name != '' && image != '') {
+    if(name != '' && image != '' && this.selectedMeasurement != '' && this.updatedWeight != null 
+    && this.updatedCalories != null) {
     this.data.name = name
     this.data.image = image
-    this.data.measurement = this.selectedMeasurement
+    if(this.selectedMeasurement == "N/A") {
+      this.data.measurement = ""
+    } else {
+      this.data.measurement = this.selectedMeasurement
+    }
+    this.data.weight = this.updatedWeight
+    this.data.calories = this.updatedCalories
+    
     this.ui.updateItem(this.data)
     this.dialog.close()
   } else {

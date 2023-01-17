@@ -16,11 +16,11 @@
     <br>
     <mat-form-field>
         <mat-label>Weight</mat-label>
-        <input matInput type="number" [(ngModel)]="this.data.weight" [value]="this.data.weight">
+        <input matInput required type="number" [(ngModel)]="updatedWeight" [value]="this.data.weight">
     </mat-form-field>
     <mat-form-field>
         <mat-label>Calories</mat-label>
-        <input matInput type="number" [(ngModel)]="this.data.calories" [value]="this.data.calories">
+        <input matInput required type="number" [(ngModel)]="updatedCalories" [value]="this.data.calories">
     </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions class="sub-card" align="end">
