@@ -1,6 +1,6 @@
 <mat-toolbar color="primary" class="toolbar">
     {{this.ui.currentUser.username}}'s Recipes <button id="align-right" mat-flat-button color="warn" (click)="this.ui.goHome()">Back</button>
 </mat-toolbar>
-<div clas="card">
+<div>
 <app-recipe *ngFor="let r of this.ui.currentUser.recipes" [recipe]="r"></app-recipe>
 </div>

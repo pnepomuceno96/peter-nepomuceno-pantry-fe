@@ -6,11 +6,11 @@
     </mat-card-header>
     <mat-form-field>
         <mat-label>Username</mat-label>
-        <input matInput type="text" #username/>
+        <input matInput required type="text" #username/>
     </mat-form-field>
     <mat-form-field>
         <mat-label>Password</mat-label>
-        <input matInput type="password" #password/>
+        <input matInput required type="password" #password/>
     </mat-form-field>
     <button mat-flat-button color="primary" (click)="attemptLogin(username.value, password.value)">Login</button>
     <button mat-flat-button color="primary" (click)="this.ui.showRegister()">Register</button>

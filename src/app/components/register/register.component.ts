@@ -16,9 +16,13 @@ export class RegisterComponent implements OnInit {
   private newUser = {} as AppUserDTO
 
   public register(username: string, password: string) {
+    if(username != '' && password != '') {
     this.newUser.username = username
     this.newUser.password = password
     this.ui.postAppUser(this.newUser)
     this.ui.goHome()
+    } else {
+      this.ui.showError("Incomplete fields.")
+    }
   }
 }

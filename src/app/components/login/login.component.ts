@@ -16,8 +16,12 @@ export class LoginComponent implements OnInit {
   public password: string = ''
 
   public attemptLogin(username: string, password: string) {
+    if(username != '' && password != '') {
     this.username = username
     this.password = password
     this.ui.loadUser(this.username, this.password)
+    } else {
+    this.ui.showError("Incomplete fields.")
+    }
   }
 }

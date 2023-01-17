@@ -34,6 +34,7 @@ import { CookedRecipeComponent } from './components/cooked-recipe/cooked-recipe.
 import { EditUserComponent } from './components/edit-user/edit-user.component';
 import { EditRecipeComponent } from './components/edit-recipe/edit-recipe.component';
 import { EditStepComponent } from './components/edit-step/edit-step.component';
+import { UsersComponent } from './components/users/users.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { EditStepComponent } from './components/edit-step/edit-step.component';
     CookedRecipeComponent,
     EditUserComponent,
     EditRecipeComponent,
-    EditStepComponent
+    EditStepComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,
