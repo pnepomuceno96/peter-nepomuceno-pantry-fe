@@ -271,8 +271,8 @@ export class UiService {
         this.login(appUser)
 
         this.currentUser = appUser
-        console.log("Login successful?")
-        console.log("After: " + this.currentUser)
+        // console.log("Login successful?")
+        // console.log("After: " + this.currentUser)
         this.goHome()
       },
       error: err => {

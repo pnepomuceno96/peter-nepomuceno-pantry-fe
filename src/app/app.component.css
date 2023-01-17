@@ -1,16 +1,19 @@
 
 
-body, html {
-    height: 100%;
+.fit-content {
+    height: fit-content;
     background-image: url("https://i.imgur.com/AmqDfNf.jpg");
-    background-attachment: fixed;
-    height: 130%;
+    background-size: cover;
     background-position: center;
-    background-size: contain;
-    background-size: cover; 
-    
-    
+    background-attachment: fixed;
     background-repeat: no-repeat;
 }
 
-
+.full-height {
+    height: 100%;
+    background-image: url("https://i.imgur.com/AmqDfNf.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
