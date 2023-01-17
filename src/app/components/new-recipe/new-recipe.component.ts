@@ -48,6 +48,7 @@ export class NewRecipeComponent implements OnInit {
     this.newRecipe.steps = this.steps
     this.newRecipe.userId = this.ui.currentUser.id
     this.newRecipe.ingredients = this.ui.recipeIngredients
+    
     this.ui.postRecipe(this.newRecipe)
     this.ui.goHome()
   } else {

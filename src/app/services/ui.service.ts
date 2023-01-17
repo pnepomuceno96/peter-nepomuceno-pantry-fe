@@ -242,9 +242,11 @@ export class UiService {
         this.recipeIngredients = [{} as IngredientDTO]
         
       },
-      error: err => [
+      error: err => {
+        this.steps = [{} as Step]
+        this.recipeIngredients = [{} as IngredientDTO]
         this.showError('Oops, something went wrong.')
-      ]
+    }
     })
   }
 
