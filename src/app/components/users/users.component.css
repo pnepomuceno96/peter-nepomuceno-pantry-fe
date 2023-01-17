@@ -3,9 +3,10 @@
 }
 .card {
     background-color: rgb(255, 224, 171);
-    width: 10rem;
-    margin: 1rem;
+    width: 7rem;
+    margin: 4px;
     display: inline-block;
+    text-align: center;
 }
 
 #align-right {

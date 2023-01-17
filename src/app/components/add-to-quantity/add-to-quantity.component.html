@@ -1,11 +1,11 @@
-<h2 mat-dialog-title>Add more</h2>
-<mat-dialog-content>
+<h2  class="sub-card" mat-dialog-title>Add more</h2>
+<mat-dialog-content  class="sub-card">
     <mat-form-field>
         <mat-label>Amount to add</mat-label>
         <input matInput type="number" [(ngModel)]="quantity">
     </mat-form-field>
 </mat-dialog-content>
-<mat-dialog-actions align="end">
+<mat-dialog-actions class="sub-card" align="end">
     <button mat-button mat-dialog-close>Cancel</button>
     <button mat-button mat-dialog-close="true" (click)="newQuant(quantity)">Submit</button>
 </mat-dialog-actions>

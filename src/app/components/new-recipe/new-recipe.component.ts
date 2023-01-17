@@ -33,6 +33,8 @@ export class NewRecipeComponent implements OnInit {
 
   private steps: string[] = []
   public postRecipe(name: string, image: string, description: string): void {
+    if(name != '' && image != '' && description != '' && 
+    this.steps.length > 0) {
     this.newRecipe.name = name
     this.newRecipe.image = image
     this.newRecipe.description = description
@@ -44,6 +46,9 @@ export class NewRecipeComponent implements OnInit {
     this.newRecipe.ingredients = this.ui.recipeIngredients
     this.ui.postRecipe(this.newRecipe)
     this.ui.goHome()
+  } else {
+    this.ui.showError("Incomplete fields.")
+  }
   }
 
   

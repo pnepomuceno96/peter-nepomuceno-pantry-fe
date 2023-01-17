@@ -26,6 +26,7 @@ export class NewItemComponent implements OnInit{
   }
 
   public postItem(name: string, image: string) {
+    if(name != '' && image != '' && this.selectedMeasurement != '' && this.quantity > 0 && this.calories != null && this.weight != null) {
     this.newItem.name = name
     this.newItem.image = image
     if(this.selectedMeasurement == "N/A"){
@@ -40,6 +41,9 @@ export class NewItemComponent implements OnInit{
     this.ui.postItem(this.newItem)
     
     this.ui.goHome()
+  } else {
+    this.ui.showError("Incomplete fields.")
+  }
   }
 
 }

@@ -33,11 +33,15 @@ export class EditItemComponent implements OnInit{
   }
 
   public newProperties(name: string, image: string) {
+    if(name != '' && image != '') {
     this.data.name = name
     this.data.image = image
     this.data.measurement = this.selectedMeasurement
     this.ui.updateItem(this.data)
     this.dialog.close()
+  } else {
+    this.ui.showError("Incomplete fields.")
+  }
   }
   
 }
