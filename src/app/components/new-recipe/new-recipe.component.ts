@@ -25,7 +25,12 @@ export class NewRecipeComponent implements OnInit {
   public newRecipe = {} as RecipeDTO
   
   
-  
+  public cancel(): void {
+    this.ui.goHome()
+    this.ui.recipeIngredients = [{} as IngredientDTO]
+    this.ui.steps = [{} as Step]
+  }
+
   private steps: string[] = []
   public postRecipe(name: string, image: string, description: string): void {
     this.newRecipe.name = name

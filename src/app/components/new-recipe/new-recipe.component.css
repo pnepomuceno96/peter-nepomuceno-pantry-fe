@@ -6,3 +6,8 @@
     display: flex;
     margin-left: auto;
 }
+
+.card {
+    width: 30rem;
+    background-color: rgb(255, 224, 171);
+}
