@@ -87,6 +87,10 @@ export class UiService {
     this.snackBar.open(message, undefined, {duration: 4000})
   }
 
+  public showMessage(message: string): void {
+    this.snackBar.open(message, undefined, {duration: 4000})
+  }
+
   public goHome(): void {
     this.pageName = Page.HOME
   }
@@ -216,6 +220,7 @@ export class UiService {
     .subscribe({
       next: () => {
         this.loadCookedRecipes()
+        this.showMessage("Recipe cooked.")
       },
       error: err => [
         this.showError('Oops, something went wrong.')
@@ -360,6 +365,7 @@ export class UiService {
         console.log("Cooked Recipes: " + cookedRecipes)
         this.cookedRecipes = cookedRecipes
         this.$cookedRecipes.next(cookedRecipes)
+        
       },
       error: err => {
         this.showError('Could not load cooked recipes.')
@@ -426,7 +432,10 @@ export class UiService {
     this.http.put<RecipeDTO>(`http://localhost:8080/recipes/${updatedRecipe.id}`, updatedRecipe)
     .pipe(take(1)).subscribe({
       next: () => {
+        this.loadItems()
         this.loadRecipes()
+        this.checkLogin()
+        this.showMessage("Recipe updated.")
       },
       error: err => {
         this.showError('Could not update recipe.')
