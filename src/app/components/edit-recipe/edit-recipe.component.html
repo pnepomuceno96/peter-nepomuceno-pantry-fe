@@ -13,6 +13,35 @@
         <mat-label>Description</mat-label>
         <input matInput type="text" #description [value]="this.data.description">
     </mat-form-field>
+    <mat-card>
+        <mat-card-header>
+            Ingredients:
+        </mat-card-header>
+    </mat-card>
+    <app-ingredient *ngFor="let ingredient of this.ui.recipeIngredients" [ingredient]="ingredient"></app-ingredient>
+    <br>
+    <mat-card>
+        <mat-card-header>
+            Steps:
+        </mat-card-header>
+        <app-edit-step *ngFor="let step of this.recipeSteps" [step]="step"></app-edit-step>
+            <!-- <mat-card-content>
+                <mat-form-field>
+                    <mat-label>Step</mat-label>
+                    <input matInput value={{step}} required type="text" #steep>
+                </mat-form-field>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-fab color="warn" (click)="deleteStep(step)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </mat-card-actions> -->
+        <mat-card-actions>
+            <button mat-fab color="primary" (click)="addStep()">
+                <mat-icon>add_circle</mat-icon>
+            </button>
+        </mat-card-actions>
+    </mat-card>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
     <button mat-button (click)="cancel()">Cancel</button>

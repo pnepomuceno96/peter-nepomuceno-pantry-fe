@@ -33,6 +33,7 @@ import { CookedRecipesComponent } from './components/cooked-recipes/cooked-recip
 import { CookedRecipeComponent } from './components/cooked-recipe/cooked-recipe.component';
 import { EditUserComponent } from './components/edit-user/edit-user.component';
 import { EditRecipeComponent } from './components/edit-recipe/edit-recipe.component';
+import { EditStepComponent } from './components/edit-step/edit-step.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { EditRecipeComponent } from './components/edit-recipe/edit-recipe.compon
     CookedRecipesComponent,
     CookedRecipeComponent,
     EditUserComponent,
-    EditRecipeComponent
+    EditRecipeComponent,
+    EditStepComponent
   ],
   imports: [
     BrowserModule,

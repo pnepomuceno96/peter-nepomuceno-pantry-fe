@@ -1,6 +1,6 @@
 export interface IngredientDTO {
     id: number | null
-    itemId: number
+    itemNo: number
     name: string
     measurement: string
     quantity: number

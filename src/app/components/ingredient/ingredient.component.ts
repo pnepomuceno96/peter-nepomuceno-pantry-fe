@@ -26,7 +26,7 @@ export class IngredientComponent implements OnInit {
 
   public updateIngredient(selectedItemId: number, quantity: number) {
     console.log(selectedItemId)
-    this.ingredient.itemId = selectedItemId
+    this.ingredient.itemNo = selectedItemId
     this.ingredient.quantity = quantity
   }
 

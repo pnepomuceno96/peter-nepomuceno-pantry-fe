@@ -16,6 +16,7 @@ export class StepComponent implements OnInit{
     this.step = this.ui.step
   }
   
+  //Step is made an object to be identifiable by the ui service
   @Input() step: Step
   
   //public stepIndex = this.ui.steps.indexOf(this.step)

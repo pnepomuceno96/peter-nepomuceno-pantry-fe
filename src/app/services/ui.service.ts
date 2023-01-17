@@ -70,9 +70,13 @@ export class UiService {
   public $cookedRecipe: Subject<CookedRecipe> = new Subject
   public $cookedRecipes: Subject<CookedRecipe[]> = new Subject
 
+  //Step is made an object to be identifiable by the ui service
   public step = {} as Step
   public steps: Step[] = [{} as Step]
   public $steps: Subject<Step[]> = new Subject
+  
+
+  public editSteps: string[] = []
 
   public currentUser = {} as AppUser
 
@@ -460,8 +464,8 @@ export class UiService {
     
   }
 
-  // public checkIngredient(itemId: number, difference: number): boolean | null {
-  //   this.http.get<Item>(`http://localhost:8080/items/${itemId}`)
+  // public checkIngredient(itemNo: number, difference: number): boolean | null {
+  //   this.http.get<Item>(`http://localhost:8080/items/${itemNo}`)
   //     .pipe(take(1)).subscribe({
   //       next: item => {
   //         this.usedItem = item
@@ -490,9 +494,9 @@ export class UiService {
   // }
   
 
-  // public loadAndSubtract(itemId: number, difference: number): boolean {
+  // public loadAndSubtract(itemNo: number, difference: number): boolean {
   //   console.log("Difference = " + difference)
-  //   this.http.get<Item>(`http://localhost:8080/items/${itemId}`)
+  //   this.http.get<Item>(`http://localhost:8080/items/${itemNo}`)
   //   .pipe(take(1)).subscribe({
   //     next: item => {
   //       this.usedItem = item
