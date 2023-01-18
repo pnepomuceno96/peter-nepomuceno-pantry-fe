@@ -25,12 +25,15 @@ export class UiService {
     this.loadRecipes()
     this.loadCookedRecipes()
     
-   
+    this.$users.subscribe({next: () => {
     const username = localStorage.getItem('username')
     const password = localStorage.getItem('password')
-    if(username !== null && password !== null) {
-      this.loadUser(username, password)
+    if(this.users.length != -1) {
+      if(username !== null && password !== null) {
+        this.loadUser(username, password)
+      }
     }
+  }})
     
   }
   private userUrl = "http://localhost:8080/appusers"

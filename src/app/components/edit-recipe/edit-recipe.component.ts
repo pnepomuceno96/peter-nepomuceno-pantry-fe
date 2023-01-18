@@ -54,6 +54,7 @@ export class EditRecipeComponent implements OnInit {
     this.recipeRequest.image = image
     this.recipeRequest.steps = this.recipeSteps
     this.recipeRequest.ingredients = this.ui.recipeIngredients
+    console.log(this.recipeRequest)
     this.ui.updateRecipe(this.recipeRequest)
     this.dialog.close()
   }
