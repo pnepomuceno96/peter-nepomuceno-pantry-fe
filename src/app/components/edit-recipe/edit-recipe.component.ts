@@ -21,6 +21,7 @@ export class EditRecipeComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: Recipe) {
       this.ui.editSteps = data.steps.split('\n| ')
       this.recipeSteps = this.ui.editSteps
+      
       this.ui.recipeIngredients = [{} as IngredientDTO]
       // for(let i = 0; i < this.data.ingredients.length; i++) {
       //   const ing = {} as IngredientDTO
@@ -55,7 +56,9 @@ export class EditRecipeComponent implements OnInit {
     this.recipeRequest.steps = this.recipeSteps
     this.recipeRequest.ingredients = this.ui.recipeIngredients
     console.log(this.recipeRequest)
-    this.ui.updateRecipe(this.recipeRequest)
+    this.ui.updateRecipe(this.recipeRequest, this.data.ingredients)
+
+    
     this.dialog.close()
   }
 

@@ -433,7 +433,7 @@ export class UiService {
     })
   }
   
-  public updateRecipe(updatedRecipe: RecipeDTO): void {
+  public updateRecipe(updatedRecipe: RecipeDTO, ingredients: Ingredient[]): void {
     this.http.put<RecipeDTO>(`http://localhost:8080/recipes/${updatedRecipe.id}`, updatedRecipe)
     .pipe(take(1)).subscribe({
       next: () => {
@@ -441,6 +441,10 @@ export class UiService {
         this.loadRecipes()
         this.checkLogin()
         this.showMessage("Recipe updated.")
+        //Delete old ingredient data
+        for(let i=0; i<ingredients.length; i++) {
+          this.deleteIngredient(ingredients[i])
+        }
       },
       error: err => {
         this.showError('Could not update recipe.')
@@ -547,6 +551,18 @@ export class UiService {
       },
       error: err => {
         this.showError('Oops, something went wrong.')
+      }
+    })
+  }
+
+  public deleteIngredient(ingredient: Ingredient): void {
+    this.http.delete(`http://localhost:8080/ingredients/${ingredient.id}`)
+    .pipe(take(1)).subscribe({
+      next: () => {
+        this.loadIngredients()
+      },
+      error: err => {
+        this.showError('Something went wrong with deleting ingredient.')
       }
     })
   }
