@@ -10,9 +10,11 @@
     </mat-form-field>
     <br>
     <mat-label>Measurement</mat-label>
+    <mat-form-field appearance="fill">
     <mat-select matInput required [(value)]="selectedMeasurement" (selectionChange)="updateMeasurement(selectedMeasurement)">
         <mat-option *ngFor="let meas of measurements" [value]="meas">{{meas}}</mat-option>
     </mat-select>
+    </mat-form-field>
     <br>
     <mat-form-field>
         <mat-label>Weight</mat-label>
