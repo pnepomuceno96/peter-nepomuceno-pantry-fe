@@ -24,16 +24,16 @@ export class IngredientComponent implements OnInit {
 
   
 
-  public updateIngredient(selectedItemId: number, quantity: number) {
-    console.log(selectedItemId)
-    this.ingredient.itemNo = selectedItemId
+  public updateIngredient(selectedItemName: string, quantity: number) {
+    console.log(selectedItemName)
+    this.ingredient.name = selectedItemName
     this.ingredient.quantity = quantity
   }
 
   public selectIngredient(i: Item) {
     console.log(i)
     this.item = i
-    this.updateIngredient(i.id, this.ingredient.quantity)
+    this.updateIngredient(i.name, this.ingredient.quantity)
   }
 
   public addIngredient(): void {

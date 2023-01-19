@@ -146,8 +146,8 @@ export class UiService {
     if(appUser != null) {
       localStorage.setItem('username', appUser.username)
       localStorage.setItem('password', appUser.password)
-    this.loggedIn = true
-  }
+      this.loggedIn = true
+    }
   }
 
   public logout(): void {
@@ -173,25 +173,25 @@ export class UiService {
     return this.cookedRecipe
   }
 
-  public watchUser(): Observable<AppUser> {
-    return this.$user.asObservable()
-  }
+  // public watchUser(): Observable<AppUser> {
+  //   return this.$user.asObservable()
+  // }
 
-  public watchRecipe(): Observable<Recipe> {
-    return this.$recipe.asObservable()
-  }
+  // public watchRecipe(): Observable<Recipe> {
+  //   return this.$recipe.asObservable()
+  // }
 
-  public watchRecipes(): Observable<Recipe[]> {
-    return this.$recipes.asObservable()
-  }
+  // public watchRecipes(): Observable<Recipe[]> {
+  //   return this.$recipes.asObservable()
+  // }
 
-  public watchItem(): Observable<Item> {
-    return this.$item.asObservable()
-  }
+  // public watchItem(): Observable<Item> {
+  //   return this.$item.asObservable()
+  // }
 
-  public watchItems(): Observable<Item[]> {
-    return this.$items.asObservable()
-  }
+  // public watchItems(): Observable<Item[]> {
+  //   return this.$items.asObservable()
+  // }
 
   // C
   public postAppUser(user: AppUserDTO): void {
@@ -257,7 +257,7 @@ export class UiService {
     this.http.post<IngredientDTO>(this.ingredientUrl, ingredient).pipe(take(1))
     .subscribe({
       next: () => {
-        
+        //this.loadIngredients()
       },
       error: err => {
         this.showError('Oops, something went wrong.')
