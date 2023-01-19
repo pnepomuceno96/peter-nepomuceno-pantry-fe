@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { UiService } from 'src/app/services/ui.service';
 import { CookedRecipe } from 'src/data/CookedRecipe';
+import { ItemDTO } from 'src/DTOs/ItemDTO';
 import { EditCookedRecipeComponent } from '../edit-cooked-recipe/edit-cooked-recipe.component';
 
 @Component({
@@ -19,6 +20,18 @@ export class CookedRecipeComponent implements OnInit {
   }
   @Input() cookedRecipe: CookedRecipe
 
+  private newItem = {} as ItemDTO
+  public itemQuantity = 0
+  public convertToItem(): void {
+    this.newItem.name = this.cookedRecipe.name
+    this.newItem.image = this.cookedRecipe.image
+    this.newItem.measurement = ""
+    this.newItem.quantity = this.itemQuantity + 1
+    this.newItem.calories = this.cookedRecipe.calories
+    this.newItem.weight = this.cookedRecipe.weight
+    this.ui.postItem(this.newItem)
+    this.ui.deleteCookedRecipe(this.cookedRecipe)
+  }
 
 
   public openDialog(): void {

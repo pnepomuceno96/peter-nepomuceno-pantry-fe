@@ -211,6 +211,8 @@ export class UiService {
     .subscribe({
       next: () => {
         this.loadItems()
+        this.goHome()
+        this.showMessage('Item posted.')
       },
       error: err => {
         this.showError('Item likely already exists. Try adding quantity via the home menu!')
