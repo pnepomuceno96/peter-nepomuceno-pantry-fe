@@ -67,6 +67,7 @@ export class UiService {
   public ingredients: Ingredient[] = []
   public $ingredient: Subject<Ingredient> = new Subject
   public $ingredients: Subject<Ingredient[]> = new Subject
+  public $recipeIngredients: Subject<IngredientDTO[]> = new Subject
 
   public cookedRecipe = {} as CookedRecipe
   public cookedRecipes: CookedRecipe[] = []
@@ -193,6 +194,10 @@ export class UiService {
   //   return this.$items.asObservable()
   // }
 
+  public watchIngredients(): Observable<IngredientDTO[]> {
+    return this.$recipeIngredients.asObservable()
+  }
+
   // C
   public postAppUser(user: AppUserDTO): void {
     this.http.post<AppUserDTO>(this.userUrl, user).pipe(take(1))
@@ -276,8 +281,6 @@ export class UiService {
         this.login(appUser)
 
         this.currentUser = appUser
-        // console.log("Login successful?")
-        // console.log("After: " + this.currentUser)
         this.goHome()
       },
       error: err => {
@@ -393,6 +396,10 @@ export class UiService {
     })
   }
 
+  public loadItemByName(): void {
+    this.http.get<Item>(this.itemUrl)
+  }
+
   // U
   public updateUser(updatedUser: AppUserDTO): void {
     this.http.put<AppUserDTO>(`http://localhost:8080/appusers/${updatedUser.id}`, updatedUser)
@@ -443,10 +450,15 @@ export class UiService {
         this.loadRecipes()
         this.checkLogin()
         this.showMessage("Recipe updated.")
+
+        this.steps = [{} as Step]
+        this.recipeIngredients = [{} as IngredientDTO]
+
         //Delete old ingredient data
         for(let i=0; i<ingredients.length; i++) {
           this.deleteIngredient(ingredients[i])
         }
+
       },
       error: err => {
         this.showError('Could not update recipe.')

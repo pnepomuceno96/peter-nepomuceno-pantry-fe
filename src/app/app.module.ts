@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule} from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
@@ -36,6 +36,7 @@ import { EditRecipeComponent } from './components/edit-recipe/edit-recipe.compon
 import { EditStepComponent } from './components/edit-step/edit-step.component';
 import { UsersComponent } from './components/users/users.component';
 import { EditCookedRecipeComponent } from './components/edit-cooked-recipe/edit-cooked-recipe.component';
+import { EditIngredientComponent } from './components/edit-ingredient/edit-ingredient.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { EditCookedRecipeComponent } from './components/edit-cooked-recipe/edit-
     EditRecipeComponent,
     EditStepComponent,
     UsersComponent,
-    EditCookedRecipeComponent
+    EditCookedRecipeComponent,
+    EditIngredientComponent
   ],
   imports: [
     BrowserModule,
@@ -76,6 +78,7 @@ import { EditCookedRecipeComponent } from './components/edit-cooked-recipe/edit-
     MatTableModule,
     MatDialogModule,
     FormsModule,
+    ReactiveFormsModule,
     MatExpansionModule
   ],
   providers: [],

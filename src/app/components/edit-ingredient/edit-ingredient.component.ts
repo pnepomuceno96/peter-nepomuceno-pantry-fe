@@ -1,23 +1,26 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, NgForm, Validators } from '@angular/forms';
-import { take } from 'rxjs';
+import { Component, OnInit, Input } from '@angular/core';
 import { UiService } from 'src/app/services/ui.service';
 import { Ingredient } from 'src/data/Ingredient';
 import { Item } from 'src/data/Item';
 import { IngredientDTO } from 'src/DTOs/IngredientDTO';
 import { RecipeDTO } from 'src/DTOs/RecipeDTO';
 
+
 @Component({
-  selector: 'app-ingredient',
-  templateUrl: './ingredient.component.html',
-  styleUrls: ['./ingredient.component.css']
+  selector: 'app-edit-ingredient',
+  templateUrl: './edit-ingredient.component.html',
+  styleUrls: ['./edit-ingredient.component.css']
 })
-export class IngredientComponent implements OnInit {
+export class EditIngredientComponent implements OnInit{
   ngOnInit(): void {
     
   }
   constructor(public ui: UiService) {
-    this.ingredient = ui.ingredientRequest 
+    //ui.watchIngredients().pipe(take(1)).subscribe({(recipeIngredients())})
+    this.ingredient = ui.ingredientRequest
+    
+    //this.selected = new FormControl(this.ingredient.name, [Validators.required])
+    
   }
 
   @Input() ingredient: IngredientDTO = {} as IngredientDTO
@@ -30,16 +33,16 @@ export class IngredientComponent implements OnInit {
   //public selected = {} as Item
   
 
-  public updateIngredient(selectedItemName: string, quantity: number) {
+  public updateIngredient(selectedItemName: string) {
     this.ingredient.name = selectedItemName
     console.log(this.ingredient.name)
-    this.ingredient.quantity = quantity
+    //this.ingredient.quantity = quantity
   }
 
   public selectIngredient(i: Item) {
     console.log(i)
-    this.item = i
-    this.updateIngredient(i.name, this.ingredient.quantity)
+    //this.selected = i
+    this.updateIngredient(i.name)
   }
 
   public removeIngredient(): void {

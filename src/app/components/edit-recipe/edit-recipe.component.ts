@@ -22,21 +22,22 @@ export class EditRecipeComponent implements OnInit {
       this.ui.editSteps = data.steps.split('\n| ')
       this.recipeSteps = this.ui.editSteps
       
-      this.ui.recipeIngredients = [{} as IngredientDTO]
-      // for(let i = 0; i < this.data.ingredients.length; i++) {
-      //   const ing = {} as IngredientDTO
-      //   ing.id = this.data.ingredients[i].id
-      //   ing.itemNo = this.data.ingredients[i].itemNo
-      //   ing.name = this.data.ingredients[i].name
-      //   ing.measurement = this.data.ingredients[i].measurement
-      //   ing.quantity = this.data.ingredients[i].quantity
-      //   this.ui.recipeIngredients.push(ing)
-      // }
+      this.ui.recipeIngredients = []
+      for(let i = 0; i < this.data.ingredients.length; i++) {
+        const ing = {} as IngredientDTO
+        ing.id = this.data.ingredients[i].id
+        ing.name = this.data.ingredients[i].name
+        ing.measurement = this.data.ingredients[i].measurement
+        ing.quantity = this.data.ingredients[i].quantity
+        this.ui.recipeIngredients.push(ing)
+      }
+
     }
   public recipeSteps: string[] = []
   //public ingredients: IngredientDTO[] = []
   public cancel() {
     this.dialog.close()
+    this.ui.recipeIngredients = [{} as IngredientDTO]
   }
   
 
