@@ -13,6 +13,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatTableModule} from '@angular/material/table';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatSortModule} from '@angular/material/sort';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -37,6 +38,7 @@ import { EditStepComponent } from './components/edit-step/edit-step.component';
 import { UsersComponent } from './components/users/users.component';
 import { EditCookedRecipeComponent } from './components/edit-cooked-recipe/edit-cooked-recipe.component';
 import { EditIngredientComponent } from './components/edit-ingredient/edit-ingredient.component';
+import { ItemSortHeaderComponent } from './components/item-sort-header/item-sort-header.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +63,8 @@ import { EditIngredientComponent } from './components/edit-ingredient/edit-ingre
     EditStepComponent,
     UsersComponent,
     EditCookedRecipeComponent,
-    EditIngredientComponent
+    EditIngredientComponent,
+    ItemSortHeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -79,7 +82,8 @@ import { EditIngredientComponent } from './components/edit-ingredient/edit-ingre
     MatDialogModule,
     FormsModule,
     ReactiveFormsModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent]

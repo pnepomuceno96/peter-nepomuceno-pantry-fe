@@ -1,0 +1,11 @@
+<mat-toolbar color="primary" class="toolbar">
+    Sort Items by: 
+    <table matSort (matSortChange)="ui.sortItems($event)">
+        <tr>
+            <th mat-sort-header="name">Name</th>
+            <th mat-sort-header="calories">Calories</th>
+            <th mat-sort-header="weight">Weight</th>
+            <th mat-sort-header="quantity">Quantity</th>
+        </tr>
+    </table>
+</mat-toolbar>

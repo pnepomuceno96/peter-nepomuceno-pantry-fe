@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Sort } from '@angular/material/sort';
 import { Observable, Subject, take } from 'rxjs';
 import { AppUser } from 'src/data/AppUser';
 import { CookedRecipe } from 'src/data/CookedRecipe';
@@ -33,8 +34,10 @@ export class UiService {
         this.loadUser(username, password)
       }
     }
-  }})
-    
+    }})
+    this.$items.subscribe({next: items => {
+      this.sortedItems = items.slice()
+    }})
   }
   private userUrl = "http://localhost:8080/appusers"
   private itemUrl = "http://localhost:8080/items"
@@ -173,6 +176,36 @@ export class UiService {
   public getCookedRecipe(): CookedRecipe {
     return this.cookedRecipe
   }
+
+  sortedItems: Item[] = []
+  sortItems(sort: Sort) {
+    const data = this.items.slice();
+    if (!sort.active || sort.direction === '') {
+      this.sortedItems = data;
+      return;
+    }
+
+    this.sortedItems = data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'name':
+          return compare(a.name, b.name, isAsc);
+        case 'calories':
+          return compare(a.calories, b.calories, isAsc);
+        case 'weight':
+          return compare(a.weight, b.weight, isAsc);
+        case 'quantity':
+          return compare(a.quantity, b.quantity, isAsc);
+        // case 'none':
+        //   return 0;
+        default:
+          return 0;
+      }
+    });
+  }
+
+  
+
 
   // public watchUser(): Observable<AppUser> {
   //   return this.$user.asObservable()
@@ -617,4 +650,7 @@ export class UiService {
       }
     })
   }
+}
+function compare(a: number | string, b: number | string, isAsc: boolean) {
+  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }
