@@ -38,6 +38,11 @@ export class UiService {
     this.$items.subscribe({next: items => {
       this.sortedItems = items.slice()
     }})
+    
+    // this.$recipes.subscribe({next: recipes => {
+    //   this.currentUser.recipes = recipes.slice()
+    // }})
+    
   }
   private userUrl = "http://localhost:8080/appusers"
   private itemUrl = "http://localhost:8080/items"
@@ -150,6 +155,7 @@ export class UiService {
     if(appUser != null) {
       localStorage.setItem('username', appUser.username)
       localStorage.setItem('password', appUser.password)
+      
       this.loggedIn = true
     }
   }
@@ -196,8 +202,29 @@ export class UiService {
           return compare(a.weight, b.weight, isAsc);
         case 'quantity':
           return compare(a.quantity, b.quantity, isAsc);
-        // case 'none':
-        //   return 0;
+        default:
+          return 0;
+      }
+    });
+  }
+
+  
+  sortRecipes(sort: Sort) {
+    const data = this.currentUser.recipes.slice();
+    if (!sort.active || sort.direction === '') {
+      this.currentUser.recipes = data;
+      return;
+    }
+
+    this.currentUser.recipes = data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'name':
+          return compare(a.name, b.name, isAsc);
+        case 'calories':
+          return compare(a.totalCalories, b.totalCalories, isAsc);
+        case 'weight':
+          return compare(a.totalWeight, b.totalWeight, isAsc);
         default:
           return 0;
       }
@@ -226,6 +253,7 @@ export class UiService {
   // public watchItems(): Observable<Item[]> {
   //   return this.$items.asObservable()
   // }
+  
 
   public watchIngredients(): Observable<IngredientDTO[]> {
     return this.$recipeIngredients.asObservable()
@@ -314,6 +342,7 @@ export class UiService {
         this.login(appUser)
 
         this.currentUser = appUser
+        //this.recipes = this.currentUser.recipes
         this.goHome()
       },
       error: err => {
