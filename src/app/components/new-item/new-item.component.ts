@@ -25,9 +25,13 @@ export class NewItemComponent implements OnInit{
     this.selectedMeasurement =  m
   }
 
+  private titleCase(string: string): string {
+    return string.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();})
+  }
+
   public postItem(name: string, image: string) {
     if(name != '' && image != '' && this.selectedMeasurement != '' && this.quantity > 0 && this.calories != null && this.weight != null && this.weight > 0) {
-    this.newItem.name = name
+    this.newItem.name = this.titleCase(name)
     this.newItem.image = image
     if(this.selectedMeasurement == "N/A"){
       this.newItem.measurement = ""

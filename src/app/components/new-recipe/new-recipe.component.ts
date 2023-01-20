@@ -31,10 +31,14 @@ export class NewRecipeComponent implements OnInit {
     this.ui.steps = [{} as Step]
   }
 
+  private titleCase(string: string): string {
+    return string.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();})
+  }
+
   private steps: string[] = []
   public postRecipe(name: string, image: string, description: string): void {
     if(name != '' && image != '' && description != '') {
-    this.newRecipe.name = name
+    this.newRecipe.name = this.titleCase(name)
     this.newRecipe.image = image
     this.newRecipe.description = description
     for (var i = 0; i < this.ui.steps.length; i++) {
