@@ -1,4 +1,15 @@
 <mat-toolbar color="primary" class="toolbar">
-    Cooked Recipes<button id="align-right" mat-flat-button color="warn" (click)="this.ui.goHome()">Back</button>
+    Cooked Recipes
+    <mat-toolbar color="primary" class="toolbar">
+        Sort Cooked Recipes by:
+        <table matSort (matSortChange)="ui.sortCookedRecipes($event)" class="space">
+            <tr>
+                <th mat-sort-header="name">Name</th>
+                <th mat-sort-header="calories">Calories</th>
+                <th mat-sort-header="weight">Weight</th>
+            </tr>
+        </table>
+    </mat-toolbar>
+    <button id="align-right" mat-flat-button color="warn" (click)="this.ui.goHome()">Back</button>
 </mat-toolbar>
-<app-cooked-recipe *ngFor="let cookedRecipe of this.ui.cookedRecipes" [cookedRecipe]="cookedRecipe"></app-cooked-recipe>
+<app-cooked-recipe *ngFor="let cookedRecipe of this.ui.sortedCookedRecipes" [cookedRecipe]="cookedRecipe"></app-cooked-recipe>

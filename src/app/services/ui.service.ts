@@ -39,9 +39,9 @@ export class UiService {
       this.sortedItems = items.slice()
     }})
     
-    // this.$recipes.subscribe({next: recipes => {
-    //   this.currentUser.recipes = recipes.slice()
-    // }})
+    this.$cookedRecipes.subscribe({next: cookedRecipes => {
+      this.sortedCookedRecipes = cookedRecipes.slice()
+    }})
     
   }
   private userUrl = "http://localhost:8080/appusers"
@@ -231,8 +231,28 @@ export class UiService {
     });
   }
 
-  
+  sortedCookedRecipes: CookedRecipe[] = []
+  sortCookedRecipes(sort: Sort) {
+    const data = this.cookedRecipes.slice();
+    if (!sort.active || sort.direction === '') {
+      this.sortedCookedRecipes = data;
+      return;
+    }
 
+    this.sortedCookedRecipes = data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'name':
+          return compare(a.name, b.name, isAsc);
+        case 'calories':
+          return compare(a.calories, b.calories, isAsc);
+        case 'weight':
+          return compare(a.weight, b.weight, isAsc);
+        default:
+          return 0;
+      }
+    });
+  }
 
   // public watchUser(): Observable<AppUser> {
   //   return this.$user.asObservable()
