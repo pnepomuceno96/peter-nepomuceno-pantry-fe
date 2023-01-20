@@ -20,12 +20,13 @@ export class EditItemComponent implements OnInit{
     @Inject(MAT_DIALOG_DATA) public data: Item) {
       this.updatedWeight = this.data.weight
       this.updatedCalories = this.data.calories
+      this.selectedMeasurement = this.data.measurement
     }
 
   // private newItem = {} as ItemDTO
   // public id = this.data.id
   
-  public selectedMeasurement = ""
+  public selectedMeasurement = ''
   public measurements = ['cups', 'tsps', 'tbsps', 'pints', 'slices', 'N/A']
   public updateMeasurement(m: string) {
     this.selectedMeasurement = m

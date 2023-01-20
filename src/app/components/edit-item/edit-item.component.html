@@ -11,7 +11,7 @@
     <br>
     <mat-label>Measurement</mat-label>
     <mat-form-field appearance="fill">
-    <mat-select matInput required [(value)]="selectedMeasurement" (selectionChange)="updateMeasurement(selectedMeasurement)">
+    <mat-select matInput required [value]="selectedMeasurement" [(ngModel)]="selectedMeasurement" (selectionChange)="updateMeasurement(selectedMeasurement)">
         <mat-option *ngFor="let meas of measurements" [value]="meas">{{meas}}</mat-option>
     </mat-select>
     </mat-form-field>
