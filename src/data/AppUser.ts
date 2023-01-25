@@ -1,7 +1,8 @@
+import { Credentials } from "./Credentials"
 import { Recipe } from "./Recipe"
 
 export interface AppUser {
-    id: number
+    id: string
     username: string
     password: string
     recipes: Recipe[]

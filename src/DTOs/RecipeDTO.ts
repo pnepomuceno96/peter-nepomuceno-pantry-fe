@@ -9,5 +9,5 @@ export interface RecipeDTO {
     steps: string[]
     // totalWeight: number
     // totalCalories: number
-    userId: number
+    userId: string
 }

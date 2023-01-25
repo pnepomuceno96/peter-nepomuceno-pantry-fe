@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UiService } from 'src/app/services/ui.service';
 import { AppUser } from 'src/data/AppUser';
+import { Credentials } from 'src/data/Credentials';
 import { AppUserDTO } from 'src/DTOs/AppUserDTO';
 
 @Component({
@@ -13,13 +14,13 @@ export class RegisterComponent implements OnInit {
     
   }
   constructor(public ui: UiService) {}
-  private newUser = {} as AppUserDTO
+  private newUser = {} as Credentials
 
   public register(username: string, password: string) {
     if(username != '' && password != '') {
     this.newUser.username = username
     this.newUser.password = password
-    this.ui.postAppUser(this.newUser)
+    this.ui.signUp(this.newUser)
     this.ui.goHome()
     } else {
       this.ui.showError("Incomplete fields.")

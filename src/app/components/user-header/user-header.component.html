@@ -10,7 +10,7 @@
         </div>
         <div id="column">
         <button mat-flat-button color="accent" (click)="ui.showNewRecipe()">New Recipe</button>
-        <button mat-flat-button color="primary" (click)="ui.logout()">Logout</button>
+        <button mat-flat-button color="primary" (click)="ui.logout(this.ui.currentUser.id)">Logout</button>
         </div>   
     </div>
 </mat-toolbar>
