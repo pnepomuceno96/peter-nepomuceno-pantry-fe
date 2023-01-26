@@ -46,15 +46,24 @@ export class UiService {
 
     this.$items.subscribe({next: items => {
       //this.sortedItems = items.slice()
-      this.dataSource = new MatTableDataSource(items.slice())
-      this.dataSource.filterPredicate = (data: Item, filter) => {
+      this.itemDataSource = new MatTableDataSource(items.slice())
+      this.itemDataSource.filterPredicate = (data: Item, filter) => {
         const dataStr = JSON.stringify(data.name).toLowerCase();
         return dataStr.indexOf(filter) != -1;
       }
     }})
+
+    this.$recipes.subscribe({next: recipes => {
+      
+    }})
     
     this.$cookedRecipes.subscribe({next: cookedRecipes => {
-      this.sortedCookedRecipes = cookedRecipes.slice()
+      //this.sortedCookedRecipes = cookedRecipes.slice()
+      this.cookedRecipeDataSource = new MatTableDataSource(cookedRecipes.slice())
+      this.cookedRecipeDataSource.filterPredicate = (data: CookedRecipe, filter) => {
+        const dataStr = JSON.stringify(data.name).toLowerCase();
+        return dataStr.indexOf(filter) != -1;
+      }
     }})
     console.log(this.currentUser)
     
@@ -222,7 +231,11 @@ export class UiService {
         localStorage.setItem('password', appUser.password)
         //this.loadUser(appUser.credentials)
         this.currentUser = appUser
-        
+        this.recipeDataSource = new MatTableDataSource(this.currentUser.recipes.slice())
+        this.recipeDataSource.filterPredicate = (data: Recipe, filter) => {
+        const dataStr = JSON.stringify(data.name).toLowerCase();
+        return dataStr.indexOf(filter) != -1;
+      }
         this.goHome()
         
       },
@@ -285,11 +298,11 @@ export class UiService {
   sortItems(sort: Sort) {
     const data = this.items.slice();
     if (!sort.active || sort.direction === '') {
-      this.dataSource.filteredData = data;
+      this.itemDataSource.filteredData = data;
       return;
     }
 
-    this.dataSource.filteredData = data.sort((a, b) => {
+    this.itemDataSource.filteredData = data.sort((a, b) => {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
         case 'name':
@@ -310,11 +323,11 @@ export class UiService {
   sortRecipes(sort: Sort) {
     const data = this.currentUser.recipes.slice();
     if (!sort.active || sort.direction === '') {
-      this.currentUser.recipes = data;
+      this.recipeDataSource.filteredData = data;
       return;
     }
 
-    this.currentUser.recipes = data.sort((a, b) => {
+    this.recipeDataSource.filteredData = data.sort((a, b) => {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
         case 'name':
@@ -333,11 +346,11 @@ export class UiService {
   sortCookedRecipes(sort: Sort) {
     const data = this.cookedRecipes.slice();
     if (!sort.active || sort.direction === '') {
-      this.sortedCookedRecipes = data;
+      this.cookedRecipeDataSource.filteredData = data;
       return;
     }
 
-    this.sortedCookedRecipes = data.sort((a, b) => {
+    this.cookedRecipeDataSource.filteredData = data.sort((a, b) => {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
         case 'name':
@@ -352,33 +365,25 @@ export class UiService {
     });
   }
 
-  dataSource= new MatTableDataSource(this.sortedItems)
-  applyFilter(event: Event) {
+  itemDataSource= new MatTableDataSource(this.sortedItems)
+  applyItemFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    //console.log(this.sortedItems)
+    this.itemDataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  // public watchUser(): Observable<AppUser> {
-  //   return this.$user.asObservable()
-  // }
+  recipeDataSource= new MatTableDataSource(this.currentUser.recipes)
+  applyRecipeFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.recipeDataSource.filter = filterValue.trim().toLowerCase();
+    
+  }
 
-  // public watchRecipe(): Observable<Recipe> {
-  //   return this.$recipe.asObservable()
-  // }
-
-  // public watchRecipes(): Observable<Recipe[]> {
-  //   return this.$recipes.asObservable()
-  // }
-
-  // public watchItem(): Observable<Item> {
-  //   return this.$item.asObservable()
-  // }
-
-  // public watchItems(): Observable<Item[]> {
-  //   return this.$items.asObservable()
-  // }
-  
+  cookedRecipeDataSource= new MatTableDataSource(this.sortedCookedRecipes)
+  applyCookedRecipeFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.cookedRecipeDataSource.filter = filterValue.trim().toLowerCase();
+    
+  }
 
   public watchIngredients(): Observable<IngredientDTO[]> {
     return this.$recipeIngredients.asObservable()
@@ -470,6 +475,11 @@ export class UiService {
 
         this.currentUser = appUser
         //this.recipes = this.currentUser.recipes
+        this.recipeDataSource = new MatTableDataSource(this.currentUser.recipes.slice())
+        this.recipeDataSource.filterPredicate = (data: Recipe, filter) => {
+        const dataStr = JSON.stringify(data.name).toLowerCase();
+        return dataStr.indexOf(filter) != -1;
+      }
         this.goHome()
       },
       error: err => {

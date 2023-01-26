@@ -9,7 +9,11 @@
                 <th mat-sort-header="weight">Weight</th>
             </tr>
         </table>
+        <mat-form-field>
+            <mat-label>Filter</mat-label>
+            <input matInput type="text" #filter (keyup)="ui.applyCookedRecipeFilter($event)">
+        </mat-form-field>
     </mat-toolbar>
     <button id="align-right" mat-flat-button color="warn" (click)="this.ui.goHome()">Back</button>
 </mat-toolbar>
-<app-cooked-recipe *ngFor="let cookedRecipe of this.ui.sortedCookedRecipes" [cookedRecipe]="cookedRecipe"></app-cooked-recipe>
+<app-cooked-recipe *ngFor="let cookedRecipe of this.ui.cookedRecipeDataSource.filteredData" [cookedRecipe]="cookedRecipe"></app-cooked-recipe>
