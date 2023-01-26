@@ -10,5 +10,7 @@ export class UserHeaderComponent implements OnInit {
   ngOnInit(): void {
     
   }
-  constructor(public ui: UiService) {}
+  constructor(public ui: UiService) {
+    console.log(ui.currentUser)
+  }
 }

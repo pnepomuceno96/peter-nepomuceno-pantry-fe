@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UiService } from 'src/app/services/ui.service';
+import { Credentials } from 'src/data/Credentials';
 
 @Component({
   selector: 'app-login',
@@ -15,11 +16,14 @@ export class LoginComponent implements OnInit {
   public username: string = ''
   public password: string = ''
 
+  public credentials = {} as Credentials
+
   public attemptLogin(username: string, password: string) {
     if(username != '' && password != '') {
-    this.username = username
-    this.password = password
-    this.ui.loadUser(this.username, this.password)
+    this.credentials.username = username
+    this.credentials.password = password
+    console.log(this.credentials)
+    this.ui.login(this.credentials)
     } else {
     this.ui.showError("Incomplete fields.")
     }

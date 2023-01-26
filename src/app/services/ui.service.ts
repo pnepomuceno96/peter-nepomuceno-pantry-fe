@@ -5,6 +5,7 @@ import { Sort } from '@angular/material/sort';
 import { Observable, Subject, take } from 'rxjs';
 import { AppUser } from 'src/data/AppUser';
 import { CookedRecipe } from 'src/data/CookedRecipe';
+import { Credentials } from 'src/data/Credentials';
 import { Ingredient } from 'src/data/Ingredient';
 import { Item } from 'src/data/Item';
 import { Page } from 'src/data/Pages';
@@ -25,16 +26,23 @@ export class UiService {
     this.loadItems()
     this.loadRecipes()
     this.loadCookedRecipes()
-    
+    // this.$user.subscribe({next: user => {
+    //   this.currentUser = user
+    //   this.goHome()
+    // }})
+
     this.$users.subscribe({next: () => {
     const username = localStorage.getItem('username')
     const password = localStorage.getItem('password')
+    const token = localStorage.getItem('token')
     if(this.users.length != -1) {
-      if(username !== null && password !== null) {
+      if(username !== null && password !== null && token != null
+        && username !== 'undefined' && password !== 'undefined') {
         this.loadUser(username, password)
       }
     }
     }})
+
     this.$items.subscribe({next: items => {
       this.sortedItems = items.slice()
     }})
@@ -42,6 +50,7 @@ export class UiService {
     this.$cookedRecipes.subscribe({next: cookedRecipes => {
       this.sortedCookedRecipes = cookedRecipes.slice()
     }})
+    console.log(this.currentUser)
     
   }
   private userUrl = "http://localhost:8080/appusers"
@@ -58,7 +67,7 @@ export class UiService {
   public users: AppUser[] = []
   public $user: Subject<AppUser> = new Subject
   public $users: Subject<AppUser[]> = new Subject
-  
+
   public item = {} as Item
   public updatedItem = {} as Item
   public items: Item[] = []
@@ -76,7 +85,7 @@ export class UiService {
   public $ingredient: Subject<Ingredient> = new Subject
   public $ingredients: Subject<Ingredient[]> = new Subject
   public $recipeIngredients: Subject<IngredientDTO[]> = new Subject
-
+  
   public cookedRecipe = {} as CookedRecipe
   public cookedRecipes: CookedRecipe[] = []
   public $cookedRecipe: Subject<CookedRecipe> = new Subject
@@ -87,6 +96,8 @@ export class UiService {
   public steps: Step[] = [{} as Step]
   public $steps: Subject<Step[]> = new Subject
   
+  public creds = {} as Credentials
+
 
   public editSteps: string[] = []
 
@@ -143,28 +154,106 @@ export class UiService {
     this.pageName = Page.EDITUSER
   }
 
+
+  //Authorization
   public checkLogin(): void {
     const username = localStorage.getItem('username')
     const password = localStorage.getItem('password')
     if(username !== null && password !== null) {
+      
       this.loadUser(username, password)
     }
   }
 
-  public login(appUser: AppUser): void {
-    if(appUser != null) {
-      localStorage.setItem('username', appUser.username)
-      localStorage.setItem('password', appUser.password)
-      
-      this.loggedIn = true
-    }
+  public checkAuth(token: string, username: string): void {
+    this.http.get<Credentials>(`http://localhost:8081/checkAuth?token=${token}`).pipe(take(1)).subscribe({
+      next: () => {
+        console.log(username)
+        this.showMessage("Authorization successful.")
+        this.getUserByUsername(username)
+      },
+      error: err => {
+        this.showError("Authorization failed.")
+      }
+    })
   }
 
-  public logout(): void {
-    localStorage.clear()
-    this.currentUser = {} as AppUser
-    this.loggedIn = false
-    this.goHome()
+  public login(creds: Credentials): void {
+    this.http.post<string>('http://localhost:8081/login', creds).pipe(take(1)).subscribe({
+      next: token => {
+        console.log(token)
+        console.log(creds)
+        this.checkAuth(token, creds.username)
+        localStorage.setItem('token', token)
+        
+        // this.creds = credentials
+        //this.currentUser = appUser
+        //this.getUserByUsername(creds.username)
+      },
+      error: err => {
+        this.showError("Login failed.")
+      }
+    })
+    // if(appUser != null) {
+    //   localStorage.setItem('username', appUser.username)
+    //   localStorage.setItem('password', appUser.password)
+    // }
+  }
+
+  public getUserByUsername(username: string): void {
+    console.log(username)
+    this.http.get<AppUser>(`http://localhost:8080/appusers?username=${username}`)
+    .pipe(take(1)).subscribe({
+      next: appUser => {
+        console.log(appUser)
+        
+        
+        this.$user.next(appUser)
+        //this.loadUsers()
+        this.loggedIn = true
+        localStorage.setItem('username', appUser.username)
+        localStorage.setItem('password', appUser.password)
+        //this.loadUser(appUser.credentials)
+        this.currentUser = appUser
+        
+        this.goHome()
+        
+      },
+      error: err => {
+        
+        this.showError('Could not find user.')
+      }
+    })
+  }
+
+  
+
+  public logout(token: string): void {
+    this.http.get<Credentials>(`http://localhost:8081/logout?token=${token}`).pipe(take(1)).subscribe({
+      next: () => {
+        this.creds = {username: '', password: ''}
+        localStorage.clear()
+        this.currentUser = {} as AppUser
+        this.loggedIn = false
+        this.goHome()
+      },
+      error: err => {
+        this.showError('Oops, something went wrong.')
+      }
+    }) 
+  }
+
+  public signUp(creds: Credentials): void {
+    console.log(creds)
+    this.http.post<AppUser>('http://localhost:8081/signup', creds).pipe(take(1)).subscribe({
+      next: () => {
+        this.loadUsers()
+        
+      },
+      error: err => {
+        this.showError('Sign up failed')
+      }
+    })
   }
 
   public getUser(): AppUser {
@@ -292,6 +381,8 @@ export class UiService {
     })
   }
 
+  
+
   public postItem(item: ItemDTO): void {
     this.http.post<ItemDTO>(this.itemUrl, item).pipe(take(1))
     .subscribe({
@@ -301,7 +392,7 @@ export class UiService {
         this.showMessage('Item posted.')
       },
       error: err => {
-        this.showError('Item likely already exists. Try adding quantity via the home menu!')
+        this.showError('Oops, something went wrong.')
       }
     })
   }
@@ -358,8 +449,8 @@ export class UiService {
     this.http.get<AppUser>(`http://localhost:8080/appusers?username=${username}&password=${password}`)
     .pipe(take(1)).subscribe({
       next: appUser => {
-        console.log("Before " + this.currentUser)
-        this.login(appUser)
+        console.log(appUser)
+        this.login({username: appUser.username, password: appUser.password})
 
         this.currentUser = appUser
         //this.recipes = this.currentUser.recipes
@@ -372,7 +463,7 @@ export class UiService {
     })
   }
 
-  public loadUserById(id: number): void {
+  public loadUserById(id: string): void {
     this.http.get<AppUser>(`http://localhost:8080/appusers/${id}`)
     .pipe(take(1)).subscribe({
       next: appUser => {
@@ -633,7 +724,7 @@ export class UiService {
   //     error: err => {
   //       this.showError('Item no longer exists.')
   //     }})
-  //     return this.cookOk
+  //     return this.cookOk 
   // }
 
   // D
@@ -641,7 +732,7 @@ export class UiService {
     this.http.delete(`http://localhost:8080/appusers/${user.id}`)
     .pipe(take(1)).subscribe({
       next: () => {
-        this.logout()
+        this.logout(user.id)
         this.loadUsers()
 
       },

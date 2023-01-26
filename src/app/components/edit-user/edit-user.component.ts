@@ -22,7 +22,7 @@ export class EditUserComponent implements OnInit {
     
   }
 
-  editUserId: number = -1
+  editUserId: string = ''
   public usernameInput: string | undefined
   
   public userRequest = {} as AppUserDTO
