@@ -45,10 +45,10 @@ export class UiService {
     }})
 
     this.$items.subscribe({next: items => {
-      this.sortedItems = items.slice()
-      this.dataSource = new MatTableDataSource(this.sortedItems)
-      this.dataSource.filterPredicate = (data: any, filter) => {
-        const dataStr = JSON.stringify(data).toLowerCase();
+      //this.sortedItems = items.slice()
+      this.dataSource = new MatTableDataSource(items.slice())
+      this.dataSource.filterPredicate = (data: Item, filter) => {
+        const dataStr = JSON.stringify(data.name).toLowerCase();
         return dataStr.indexOf(filter) != -1;
       }
     }})
@@ -356,7 +356,7 @@ export class UiService {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-    console.log(this.sortedItems)
+    //console.log(this.sortedItems)
   }
 
   // public watchUser(): Observable<AppUser> {
