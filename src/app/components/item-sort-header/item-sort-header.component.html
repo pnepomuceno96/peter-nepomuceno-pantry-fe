@@ -8,4 +8,8 @@
             <th mat-sort-header="quantity">Quantity</th>
         </tr>
     </table>
+    <mat-form-field>
+        <mat-label>Filter</mat-label>
+        <input matInput type="text" #filter (keyup)="ui.applyFilter($event)">
+    </mat-form-field>
 </mat-toolbar>

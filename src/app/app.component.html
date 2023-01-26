@@ -3,7 +3,7 @@
   <app-header *ngIf="ui.loggedIn==false"></app-header>
   <app-user-header *ngIf="ui.loggedIn==true"></app-user-header>
   <app-item-sort-header></app-item-sort-header>
-  <app-item *ngFor="let item of ui.sortedItems" [item]="item"></app-item>
+  <app-item *ngFor="let item of ui.dataSource.filteredData" [item]="item"></app-item>
 </div>
 <app-new-recipe *ngIf="ui.pageName==page.NEWRECIPE"></app-new-recipe>
 <app-recipes *ngIf="ui.pageName==page.RECIPES"></app-recipes>
