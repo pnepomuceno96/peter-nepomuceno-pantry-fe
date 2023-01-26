@@ -1,4 +1,3 @@
-import { Credentials } from "./Credentials"
 import { Recipe } from "./Recipe"
 
 export interface AppUser {

@@ -732,7 +732,7 @@ export class UiService {
     this.http.delete(`http://localhost:8080/appusers/${user.id}`)
     .pipe(take(1)).subscribe({
       next: () => {
-        //this.logout(user.id)
+        this.logout(user.id)
         this.loadUsers()
 
       },
