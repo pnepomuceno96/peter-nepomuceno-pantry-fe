@@ -49,23 +49,22 @@ export class UiService {
       this.itemDataSource = new MatTableDataSource(items.slice())
       this.itemDataSource.filterPredicate = (data: Item, filter) => {
         const dataStr = JSON.stringify(data.name).toLowerCase();
+        console.log(dataStr)
         return dataStr.indexOf(filter) != -1;
       }
     }})
 
-    this.$recipes.subscribe({next: recipes => {
-      
-    }})
-    
     this.$cookedRecipes.subscribe({next: cookedRecipes => {
       //this.sortedCookedRecipes = cookedRecipes.slice()
       this.cookedRecipeDataSource = new MatTableDataSource(cookedRecipes.slice())
       this.cookedRecipeDataSource.filterPredicate = (data: CookedRecipe, filter) => {
         const dataStr = JSON.stringify(data.name).toLowerCase();
+        console.log(dataStr)
         return dataStr.indexOf(filter) != -1;
       }
+      
     }})
-    console.log(this.currentUser)
+    //console.log(this.currentUser)
     
     //this.dataSource = new MatTableDataSource(this.sortedItems)
   }
@@ -197,8 +196,6 @@ export class UiService {
   public login(creds: Credentials): void {
     this.http.post<string>('http://localhost:8081/login', creds).pipe(take(1)).subscribe({
       next: token => {
-        console.log(token)
-        console.log(creds)
         this.checkAuth(token, creds.username)
         localStorage.setItem('token', token)
         
@@ -221,9 +218,6 @@ export class UiService {
     this.http.get<AppUser>(`http://localhost:8080/appusers?username=${username}`)
     .pipe(take(1)).subscribe({
       next: appUser => {
-        console.log(appUser)
-        
-        
         this.$user.next(appUser)
         //this.loadUsers()
         this.loggedIn = true
@@ -234,6 +228,7 @@ export class UiService {
         this.recipeDataSource = new MatTableDataSource(this.currentUser.recipes.slice())
         this.recipeDataSource.filterPredicate = (data: Recipe, filter) => {
         const dataStr = JSON.stringify(data.name).toLowerCase();
+        
         return dataStr.indexOf(filter) != -1;
       }
         this.goHome()
@@ -264,7 +259,6 @@ export class UiService {
   }
 
   public signUp(creds: Credentials): void {
-    console.log(creds)
     this.http.post<AppUser>('http://localhost:8081/signup', creds).pipe(take(1)).subscribe({
       next: () => {
         this.loadUsers()
@@ -470,16 +464,18 @@ export class UiService {
     this.http.get<AppUser>(`http://localhost:8080/appusers?username=${username}&password=${password}`)
     .pipe(take(1)).subscribe({
       next: appUser => {
-        console.log(appUser)
         this.login({username: appUser.username, password: appUser.password})
 
         this.currentUser = appUser
         //this.recipes = this.currentUser.recipes
-        this.recipeDataSource = new MatTableDataSource(this.currentUser.recipes.slice())
-        this.recipeDataSource.filterPredicate = (data: Recipe, filter) => {
-        const dataStr = JSON.stringify(data.name).toLowerCase();
-        return dataStr.indexOf(filter) != -1;
-      }
+
+        // this.recipeDataSource = new MatTableDataSource(this.currentUser.recipes.slice())
+        // this.recipeDataSource.filterPredicate = (data: Recipe, filter) => {
+        // const dataStr = JSON.stringify(data.name).toLowerCase();
+        // console.log(dataStr)
+        // return dataStr.indexOf(filter) != -1;
+        // }
+
         this.goHome()
       },
       error: err => {
@@ -531,7 +527,7 @@ export class UiService {
   public loadUsers(): void {
     this.http.get<AppUser[]>(this.userUrl).pipe(take(1)).subscribe({
       next: appUsers => {
-        console.log(appUsers)
+        
         this.users = appUsers
         this.$user.next(this.currentUser)
         this.$users.next(appUsers)

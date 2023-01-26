@@ -22,7 +22,6 @@ export class LoginComponent implements OnInit {
     if(username != '' && password != '') {
     this.credentials.username = username
     this.credentials.password = password
-    console.log(this.credentials)
     this.ui.login(this.credentials)
     } else {
     this.ui.showError("Incomplete fields.")

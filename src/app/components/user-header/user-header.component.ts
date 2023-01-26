@@ -11,6 +11,6 @@ export class UserHeaderComponent implements OnInit {
     
   }
   constructor(public ui: UiService) {
-    console.log(ui.currentUser)
+    
   }
 }
