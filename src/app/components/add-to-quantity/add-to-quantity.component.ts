@@ -12,26 +12,12 @@ export class AddToQuantityComponent implements OnInit{
   }
   constructor(private dialog: MatDialogRef<AddToQuantityComponent>) {}
   public quantity = 0
-
   public newQuant(q: number, as: boolean): void {
     var newQuantity = q
     if(as == false) {
       newQuantity = q*-1
-      console.log(q)
+
     }
-    console.log(newQuantity)
-    this.dialog.close(newQuantity)
-    
-  }
-
-  public subtract(q: number): void {
-    const newQuantity = -q
-    console.log(newQuantity)
     this.dialog.close(newQuantity)
   }
-
-  // public cancel(): void {
-  //   this.dialog.close()
-  // }
-
 }
