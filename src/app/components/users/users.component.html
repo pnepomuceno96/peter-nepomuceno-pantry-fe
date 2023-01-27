@@ -1,4 +1,33 @@
-<mat-toolbar color="primary" class="toolbar">
+<!--mat-toolbar color="primary" class="toolbar">
     Users <button id="align-right" mat-flat-button color="warn" (click)="this.ui.goHome()">Back</button>
 </mat-toolbar>
-<mat-card class="card" *ngFor="let user of this.users">{{user.username}}</mat-card>
+<mat-card class="card" *ngFor="let user of this.users">
+    {{user.username}}
+    
+</mat-card-->
+
+<mat-accordion>
+    <mat-expansion-panel *ngFor="let user of this.users" class="sub-card">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{user.username}}
+        </mat-panel-title>
+        <mat-panel-description>
+          Recipes:
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <p><mat-card *ngFor="let recipe of user.recipes" class="card">
+        <mat-card-title class="title-color">{{recipe.name}}</mat-card-title>
+        <img mat-card-image class="smaller-img" src={{recipe.image}} alt="recipe image">
+        <br>
+        <mat-card-content>
+        <mat-card class="title-color">
+        {{recipe.description}}
+        </mat-card>
+        
+
+        </mat-card-content>
+      </mat-card></p>
+      <mat-card *ngIf="user.recipes.length==0" class="title-color">No recipes found</mat-card>
+    </mat-expansion-panel>
+</mat-accordion>
