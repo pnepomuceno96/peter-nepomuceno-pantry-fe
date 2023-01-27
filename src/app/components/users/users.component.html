@@ -1,10 +1,6 @@
-<!--mat-toolbar color="primary" class="toolbar">
+<mat-toolbar color="primary" class="toolbar">
     Users <button id="align-right" mat-flat-button color="warn" (click)="this.ui.goHome()">Back</button>
 </mat-toolbar>
-<mat-card class="card" *ngFor="let user of this.users">
-    {{user.username}}
-    
-</mat-card-->
 
 <mat-accordion>
     <mat-expansion-panel *ngFor="let user of this.users" class="sub-card">
