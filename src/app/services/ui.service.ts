@@ -286,7 +286,6 @@ export class UiService {
     return this.cookedRecipe
   }
 
-  
 
   sortedItems: Item[] = []
   sortItems(sort: Sort) {
@@ -643,6 +642,7 @@ export class UiService {
       next: () => {
         this.loadItems()
         this.loadRecipes()
+        this.loadUsers()
         this.checkLogin()
         this.showMessage("Recipe updated.")
 
