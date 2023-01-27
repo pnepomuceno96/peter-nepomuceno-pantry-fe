@@ -1,9 +1,21 @@
 <mat-toolbar color="primary" class="toolbar">
-    Users <button id="align-right" mat-flat-button color="warn" (click)="this.ui.goHome()">Back</button>
+    Users 
+    <mat-toolbar color="primary">
+    <table matSort (matSortChange)="ui.sortUsers($event)" class="space">
+        <tr>
+            <th mat-sort-header="username">Sort Users</th>
+        </tr>
+    </table>
+    <mat-form-field>
+        <mat-label>Filter</mat-label>
+        <input matInput type="text" #filter (keyup)="ui.applyUserFilter($event)">
+    </mat-form-field>
+    </mat-toolbar>
+    <button id="align-right" mat-flat-button color="warn" (click)="this.ui.goHome()">Back</button>
 </mat-toolbar>
 
 <mat-accordion>
-    <mat-expansion-panel *ngFor="let user of this.users" class="sub-card">
+    <mat-expansion-panel *ngFor="let user of this.ui.userDataSource.filteredData" class="sub-card">
       <mat-expansion-panel-header>
         <mat-panel-title>
           {{user.username}}

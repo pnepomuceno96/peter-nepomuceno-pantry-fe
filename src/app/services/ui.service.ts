@@ -33,17 +33,23 @@ export class UiService {
     //   this.goHome()
     // }})
 
-    this.$users.subscribe({next: () => {
-    // LocalStorage is used to access certain storage space in the origin via key/value pairs.
-    const username = localStorage.getItem('username')
-    const password = localStorage.getItem('password')
-    const token = localStorage.getItem('token')
-    if(this.users.length != -1) {
-      if(username !== null && password !== null && token != null
-        && username !== 'undefined' && password !== 'undefined') {
-        this.loadUser(username, password)
+    this.$users.subscribe({next: users  => {
+      this.userDataSource = new MatTableDataSource(users.slice())
+      this.userDataSource.filterPredicate = (data: AppUser, filter) => {
+        const dataStr = JSON.stringify(data.username).toLowerCase();
+        return dataStr.indexOf(filter) != -1;
       }
-    }
+
+      // LocalStorage is used to access certain storage space in the origin via key/value pairs.
+      const username = localStorage.getItem('username')
+      const password = localStorage.getItem('password')
+      const token = localStorage.getItem('token')
+      if(this.users.length != -1) {
+        if(username !== null && password !== null && token != null
+          && username !== 'undefined' && password !== 'undefined') {
+          this.loadUser(username, password)
+        }
+      }
     }})
 
     this.$items.subscribe({next: items => {
@@ -53,7 +59,6 @@ export class UiService {
       // filterPredicate checks if filter string matches data
       this.itemDataSource.filterPredicate = (data: Item, filter) => {
         const dataStr = JSON.stringify(data.name).toLowerCase();
-        console.log(dataStr)
         return dataStr.indexOf(filter) != -1;
       }
     }})
@@ -63,7 +68,6 @@ export class UiService {
       this.cookedRecipeDataSource = new MatTableDataSource(cookedRecipes.slice())
       this.cookedRecipeDataSource.filterPredicate = (data: CookedRecipe, filter) => {
         const dataStr = JSON.stringify(data.name).toLowerCase();
-        console.log(dataStr)
         return dataStr.indexOf(filter) != -1;
       }
     }})
@@ -286,6 +290,24 @@ export class UiService {
     return this.cookedRecipe
   }
 
+  sortedUsers: AppUser[] = []
+  sortUsers(sort: Sort) {
+    const data = this.users.slice();
+    if (!sort.active || sort.direction === '') {
+      this.userDataSource.filteredData = data;
+      return;
+    }
+
+    this.userDataSource.filteredData = data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'username':
+          return compare(a.username, b.username, isAsc);
+        default:
+          return 0;
+      }
+    });
+  }
 
   sortedItems: Item[] = []
   sortItems(sort: Sort) {
@@ -356,6 +378,12 @@ export class UiService {
           return 0;
       }
     });
+  }
+
+  userDataSource= new MatTableDataSource(this.sortedUsers)
+  applyUserFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.userDataSource.filter = filterValue.trim().toLowerCase()
   }
 
   itemDataSource= new MatTableDataSource(this.sortedItems)

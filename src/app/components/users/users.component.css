@@ -28,3 +28,7 @@
 .sub-card {
     background-color: rgb(255, 224, 171);
 }
+
+.space {
+    margin: 1rem;
+}
