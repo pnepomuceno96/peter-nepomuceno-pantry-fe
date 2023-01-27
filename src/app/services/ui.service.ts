@@ -660,6 +660,7 @@ export class UiService {
       },
       error: err => {
         this.showError('Could not update item.')
+        this.loadItems()
       }
     })
   }

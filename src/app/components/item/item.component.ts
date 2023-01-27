@@ -26,8 +26,11 @@ export class ItemComponent implements OnInit{
       if(quantity == 0) {
         return
       } else {
-        this.item.quantity += quantity
-        this.ui.updateItem(this.item)
+        
+          this.item.quantity += quantity
+        
+          this.ui.updateItem(this.item)
+        
       }
     })
   }
