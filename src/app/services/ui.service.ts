@@ -22,6 +22,7 @@ import { RecipeDTO } from 'src/DTOs/RecipeDTO';
   providedIn: 'root'
 })
 export class UiService {
+  // A class defines how an object is implemented(its specific properties & methods).
   constructor(private http: HttpClient, private snackBar: MatSnackBar) {
     this.loadUsers()
     this.loadItems()
@@ -33,6 +34,7 @@ export class UiService {
     // }})
 
     this.$users.subscribe({next: () => {
+    // LocalStorage is used to access certain storage space in the origin via key/value pairs.
     const username = localStorage.getItem('username')
     const password = localStorage.getItem('password')
     const token = localStorage.getItem('token')
@@ -45,8 +47,10 @@ export class UiService {
     }})
 
     this.$items.subscribe({next: items => {
-      //this.sortedItems = items.slice()
+      // A MatTableDataSource object is used as a reference for data to be filtered, sorted, and paginated.
       this.itemDataSource = new MatTableDataSource(items.slice())
+
+      // filterPredicate checks if filter string matches data
       this.itemDataSource.filterPredicate = (data: Item, filter) => {
         const dataStr = JSON.stringify(data.name).toLowerCase();
         console.log(dataStr)
@@ -62,11 +66,7 @@ export class UiService {
         console.log(dataStr)
         return dataStr.indexOf(filter) != -1;
       }
-      
     }})
-    //console.log(this.currentUser)
-    
-    //this.dataSource = new MatTableDataSource(this.sortedItems)
   }
   private userUrl = "http://localhost:8080/appusers"
   private itemUrl = "http://localhost:8080/items"

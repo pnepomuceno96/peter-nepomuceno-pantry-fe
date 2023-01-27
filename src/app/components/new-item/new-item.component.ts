@@ -26,6 +26,11 @@ export class NewItemComponent implements OnInit{
   }
 
   private titleCase(string: string): string {
+    /* 
+    This looks for all matches of any number of word and 
+    non-whitespace characters(via a regex), and returns the 
+    same string but with each first character in uppercase.
+    */
     return string.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();})
   }
 
