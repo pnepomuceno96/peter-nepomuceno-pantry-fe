@@ -24,9 +24,13 @@ export class EditCookedRecipeComponent {
       this.dialog.close()
     }
 
+    private titleCase(string: string): string {
+      return string.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();})
+    }
+
     public updateCookedRecipe(name: string, image: string, description: string) {
       if(name != '' && image != '' && description != '') {
-        this.newCookedRecipe.name = name
+        this.newCookedRecipe.name = this.titleCase(name)
         this.newCookedRecipe.image = image
         this.newCookedRecipe.description = description
         this.ui.updateCookedRecipe(this.newCookedRecipe)
