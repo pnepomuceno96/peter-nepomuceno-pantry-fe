@@ -39,10 +39,14 @@ export class EditItemComponent implements OnInit{
     this.dialog.close()
   }
 
+  private titleCase(string: string): string {
+    return string.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();})
+  }
+
   public newProperties(name: string, image: string) {
     if(name != '' && image != '' && this.selectedMeasurement != '' && this.updatedWeight != null 
     && this.updatedCalories != null) {
-    this.data.name = name
+    this.data.name = this.titleCase(name)
     this.data.image = image
     if(this.selectedMeasurement == "N/A") {
       this.data.measurement = ""
