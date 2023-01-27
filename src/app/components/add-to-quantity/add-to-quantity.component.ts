@@ -16,7 +16,6 @@ export class AddToQuantityComponent implements OnInit{
   public newQuant(q: number, as: boolean): void {
     var newQuantity = q
     if(as == false) {
-      console.log("as false")
       newQuantity = q*-1
       console.log(q)
     }
