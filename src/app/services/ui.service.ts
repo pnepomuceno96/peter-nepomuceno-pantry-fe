@@ -682,8 +682,9 @@ export class UiService {
     .pipe(take(1)).subscribe({
       next: () => {
         this.loadItems()
+        this.loadUserById(this.currentUser.id)
         this.loadRecipes()
-        this.loadUsers()
+        //this.loadUsers()
         //this.checkLogin()
         this.showMessage("Recipe updated.")
 
