@@ -18,6 +18,9 @@ export class EditStepComponent implements OnInit, OnChanges {
   }
   @Input() step: string =''
   public newStep: string = ''
+  private firstLetterCaps(string: string) {
+    return string.replace(string, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1);})
+  }
 
   
   public saveStep(s: string): void {
@@ -25,7 +28,7 @@ export class EditStepComponent implements OnInit, OnChanges {
     for(let i = 0; i < this.ui.editSteps.length; i++) {
       if(i == index) {
         console.log("index true")
-        this.ui.editSteps[i] = s
+        this.ui.editSteps[i] = this.firstLetterCaps(s)
       }
     }
     console.log(this.ui.editSteps)

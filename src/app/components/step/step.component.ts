@@ -25,8 +25,11 @@ export class StepComponent implements OnInit{
     console.log(this.ui.steps)
   }
 
+  private firstLetterCaps(string: string) {
+    return string.replace(string, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1);})
+  }
   public updateStep(s: string): void {
-    this.step.step = s
+    this.step.step = this.firstLetterCaps(s)
   }
 
   
