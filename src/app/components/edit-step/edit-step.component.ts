@@ -31,11 +31,6 @@ export class EditStepComponent implements OnInit, OnChanges {
     console.log(this.ui.editSteps)
   }
 
-  public updateStep(s: string): void {
-    this.step = s
-    console.log(this.ui.editSteps)
-  }
-
   public deleteStep(): void {
     const index = this.ui.editSteps.indexOf(this.step)
     this.ui.editSteps.splice(index, 1)
