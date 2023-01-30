@@ -8,7 +8,7 @@ import { UiService } from 'src/app/services/ui.service';
 })
 export class EditStepComponent implements OnInit, OnChanges {
   ngOnInit(): void {
-    
+    this.newStep = this.step
   }
   ngOnChanges(): void {
 
@@ -17,7 +17,7 @@ export class EditStepComponent implements OnInit, OnChanges {
     
   }
   @Input() step: string =''
-  //public newStep: string = ''
+  public newStep: string = ''
 
   
   public saveStep(s: string): void {

@@ -2,9 +2,9 @@
     <mat-card-content>
         <mat-form-field>
             <mat-label>Step</mat-label>
-            <input matInput value={{step}} required type="text" #newstep>
+            <input matInput value={{step}} required type="text" [(ngModel)]="newStep" (change)="saveStep(newStep)">
         </mat-form-field>
-        <button mat-flat-button color="primary" (click)="saveStep(newstep.value)">Save</button>
+        <!--button mat-flat-button color="primary" (click)="saveStep(newStep)">Save</button-->
     </mat-card-content>
     <mat-card-actions>
         <button mat-fab color="warn" (click)="deleteStep()">
