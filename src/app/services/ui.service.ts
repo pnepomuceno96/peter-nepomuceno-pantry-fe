@@ -197,7 +197,7 @@ export class UiService {
     this.http.get<Credentials>(`http://localhost:8081/checkAuth?token=${token}`).pipe(take(1)).subscribe({
       next: () => {
         console.log(username)
-        this.showMessage("Authorization successful.")
+        //this.showMessage("Success!")
         this.getUserByUsername(username)
       },
       error: err => {
@@ -278,7 +278,7 @@ export class UiService {
         this.goHome()
       },
       error: err => {
-        this.showError('Registration failed')
+        this.showError('Username not accepted')
       }
     })
   }
@@ -643,6 +643,7 @@ export class UiService {
         localStorage.setItem('username', updatedUser.username)
         localStorage.setItem('password', updatedUser.password)
         this.loadUsers()
+        this.goHome()
       },
       error: err => {
         this.showError('Could not update account.')

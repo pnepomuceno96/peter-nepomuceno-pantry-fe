@@ -32,7 +32,7 @@ export class EditUserComponent implements OnInit {
     this.userRequest.username = username
     this.userRequest.password = password
     this.ui.updateUser(this.userRequest)
-    this.ui.goHome()
+    
   }
 
   public onDelete(): void {
