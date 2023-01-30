@@ -21,7 +21,7 @@ export class RegisterComponent implements OnInit {
     this.newUser.username = username
     this.newUser.password = password
     this.ui.signUp(this.newUser)
-    this.ui.goHome()
+    
     } else {
       this.ui.showError("Incomplete fields.")
     }

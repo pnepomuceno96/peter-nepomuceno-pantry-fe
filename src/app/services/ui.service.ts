@@ -275,10 +275,10 @@ export class UiService {
     this.http.post<AppUser>('http://localhost:8081/signup', creds).pipe(take(1)).subscribe({
       next: () => {
         this.loadUsers()
-        
+        this.goHome()
       },
       error: err => {
-        this.showError('Sign up failed')
+        this.showError('Registration failed')
       }
     })
   }
