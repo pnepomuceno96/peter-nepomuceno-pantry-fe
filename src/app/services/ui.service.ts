@@ -71,7 +71,16 @@ export class UiService {
         return dataStr.indexOf(filter) != -1;
       }
     }})
+    
+    this.$recipes.subscribe({next: recipes => {
+      this.recipeDataSource = new MatTableDataSource(recipes)
+      this.recipeDataSource.filterPredicate = (data: Recipe, filter) => {
+        const dataStr = JSON.stringify(data.name).toLowerCase();
+        return dataStr.indexOf(filter) != -1;
+      }
+    }})
   }
+  
   private userUrl = "http://localhost:8080/appusers"
   private itemUrl = "http://localhost:8080/items"
   private recipeUrl = "http://localhost:8080/recipes"
@@ -234,7 +243,7 @@ export class UiService {
         const dataStr = JSON.stringify(data.name).toLowerCase();
         
         return dataStr.indexOf(filter) != -1;
-      }
+        }
         this.goHome()
         
       },
@@ -456,12 +465,11 @@ export class UiService {
     this.http.post<RecipeDTO>(this.recipeUrl, recipe).pipe(take(1))
     .subscribe({
       next: () => {
-        this.loadRecipes()
+        
         
         // After posting a recipe, we reload the user to load our changes
         this.loadUserById(this.currentUser.id)
-
-        
+        this.loadRecipes()
         this.steps = [{} as Step]
         this.recipeIngredients = [{} as IngredientDTO]
         
@@ -518,6 +526,7 @@ export class UiService {
       next: appUser => {
         this.currentUser = appUser
         this.$user.next(appUser)
+        this.$recipes.next(this.currentUser.recipes)
       },
       error: err => {
         this.showError('Could not find user.')
@@ -582,8 +591,11 @@ export class UiService {
     this.http.get<Recipe[]>(this.recipeUrl).pipe(take(1)).subscribe({
       next: recipes => {
         console.log(recipes)
+        
         this.recipes = recipes
-        this.$recipes.next(recipes)
+        this.$recipes.next(this.currentUser.recipes)
+      
+        
       },
       error: err => {
         this.showError('Could not load recipes.')
@@ -672,7 +684,7 @@ export class UiService {
         this.loadItems()
         this.loadRecipes()
         this.loadUsers()
-        this.checkLogin()
+        //this.checkLogin()
         this.showMessage("Recipe updated.")
 
         this.steps = [{} as Step]
@@ -821,8 +833,9 @@ export class UiService {
     this.http.delete(`http://localhost:8080/recipes/${this.currentUser.id}/${recipe.id}`)
     .pipe(take(1)).subscribe({
       next: () => {
-        this.loadRecipes()
+        
         this.loadUserById(this.currentUser.id)
+        this.loadRecipes()
       },
       error: err => {
         this.showError('Oops, something went wrong.')

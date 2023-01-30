@@ -13,8 +13,12 @@
             <mat-label>Filter</mat-label>
             <input matInput type="text" #filter (keyup)="ui.applyRecipeFilter($event)">
         </mat-form-field>
+        
     </mat-toolbar>
-    <button id="align-right" mat-flat-button color="warn" (click)="this.ui.goHome()">Back</button>
+    <div id="align-right">
+    <button mat-flat-button color="accent" (click)="ui.showNewRecipe()">New Recipe</button>
+    <button mat-flat-button color="warn" (click)="this.ui.goHome()">Back</button>
+</div>
 </mat-toolbar>
 <div>
 <app-recipe *ngFor="let r of this.ui.recipeDataSource.filteredData" [recipe]="r"></app-recipe>

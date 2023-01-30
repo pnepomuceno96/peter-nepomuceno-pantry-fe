@@ -4,6 +4,7 @@
 
 #align-right {
     display: flex;
+    flex-direction: column;
     margin-left: auto;
 }
 
