@@ -8,9 +8,9 @@ import { UiService } from 'src/app/services/ui.service';
 })
 export class UserHeaderComponent implements OnInit {
   ngOnInit(): void {
-    this.ui.loadUsers()
+    
   }
   constructor(public ui: UiService) {
-    
+    this.ui.loadUsers()
   }
 }

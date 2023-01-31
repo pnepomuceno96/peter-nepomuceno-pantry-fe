@@ -193,7 +193,6 @@ export class UiService {
   public checkAuth(token: string, username: string): void {
     this.http.get<Credentials>(`http://localhost:8081/checkAuth?token=${token}`).pipe(take(1)).subscribe({
       next: () => {
-        console.log(username)
         this.getUserByUsername(username)
       },
       error: err => {
@@ -216,7 +215,6 @@ export class UiService {
   }
 
   public getUserByUsername(username: string): void {
-    console.log(username)
     this.http.get<AppUser>(`http://localhost:8080/appusers?username=${username}`)
     .pipe(take(1)).subscribe({
       next: appUser => {
