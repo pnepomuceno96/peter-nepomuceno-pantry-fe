@@ -197,7 +197,6 @@ export class UiService {
     this.http.get<Credentials>(`http://localhost:8081/checkAuth?token=${token}`).pipe(take(1)).subscribe({
       next: () => {
         console.log(username)
-        //this.showMessage("Success!")
         this.getUserByUsername(username)
       },
       error: err => {
@@ -212,18 +211,11 @@ export class UiService {
         this.checkAuth(token, creds.username)
         localStorage.setItem('token', token)
         
-        // this.creds = credentials
-        //this.currentUser = appUser
-        //this.getUserByUsername(creds.username)
       },
       error: err => {
         this.showError("Login failed.")
       }
     })
-    // if(appUser != null) {
-    //   localStorage.setItem('username', appUser.username)
-    //   localStorage.setItem('password', appUser.password)
-    // }
   }
 
   public getUserByUsername(username: string): void {
@@ -253,8 +245,6 @@ export class UiService {
       }
     })
   }
-
-  
 
   public logout(token: string): void {
     this.http.get<Credentials>(`http://localhost:8081/logout?token=${token}`).pipe(take(1)).subscribe({
@@ -412,7 +402,6 @@ export class UiService {
   applyCookedRecipeFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.cookedRecipeDataSource.filter = filterValue.trim().toLowerCase();
-    
   }
 
   public watchIngredients(): Observable<IngredientDTO[]> {
@@ -465,8 +454,6 @@ export class UiService {
     this.http.post<RecipeDTO>(this.recipeUrl, recipe).pipe(take(1))
     .subscribe({
       next: () => {
-        
-        
         // After posting a recipe, we reload the user to load our changes
         this.loadUserById(this.currentUser.id)
         this.loadRecipes()
@@ -486,7 +473,7 @@ export class UiService {
     this.http.post<IngredientDTO>(this.ingredientUrl, ingredient).pipe(take(1))
     .subscribe({
       next: () => {
-        //this.loadIngredients()
+        
       },
       error: err => {
         this.showError('Oops, something went wrong.')
@@ -502,14 +489,6 @@ export class UiService {
         this.login({username: appUser.username, password: appUser.password})
 
         this.currentUser = appUser
-        //this.recipes = this.currentUser.recipes
-
-        // this.recipeDataSource = new MatTableDataSource(this.currentUser.recipes.slice())
-        // this.recipeDataSource.filterPredicate = (data: Recipe, filter) => {
-        // const dataStr = JSON.stringify(data.name).toLowerCase();
-        // console.log(dataStr)
-        // return dataStr.indexOf(filter) != -1;
-        // }
 
         this.goHome()
       },
@@ -734,63 +713,8 @@ export class UiService {
       error: err => {
         this.showError('Insufficient ingredients.')
       }
-    })
-    
+    }) 
   }
-
-  // public checkIngredient(itemNo: number, difference: number): boolean | null {
-  //   this.http.get<Item>(`http://localhost:8080/items/${itemNo}`)
-  //     .pipe(take(1)).subscribe({
-  //       next: item => {
-  //         this.usedItem = item
-  //         console.log("this.usedItem.quantity = " + this.usedItem.quantity)
-  //         console.log("item.quantity = " + item.quantity)
-  
-  //         //Checks if user has enough ingredients for the recipe
-  //         if(this.usedItem.quantity >= difference) {
-  //           console.log("true")
-  //           this.usedItem.quantity = this.usedItem.quantity - difference
-  //           this.updateItem(this.usedItem)
-  //           return true
-  //         } else {
-  //           console.log("false")
-  //           this.showError("Not enough ingredients!")
-  //           return false
-            
-  //         }},
-  //       error: err => {
-  //         this.showError('Item no longer exists.')
-  //         return false
-  //       }})      
-  //       return null
-      
-      
-  // }
-  
-
-  // public loadAndSubtract(itemNo: number, difference: number): boolean {
-  //   console.log("Difference = " + difference)
-  //   this.http.get<Item>(`http://localhost:8080/items/${itemNo}`)
-  //   .pipe(take(1)).subscribe({
-  //     next: item => {
-  //       this.usedItem = item
-  //       console.log("this.usedItem.quantity = " + this.usedItem.quantity)
-  //       console.log("item.quantity = " + item.quantity)
-
-  //       //Checks if user has enough ingredients for the recipe
-  //       if(this.usedItem.quantity >= difference) {
-  //         this.usedItem.quantity = this.usedItem.quantity - difference
-  //         this.updateItem(this.usedItem)
-  //         this.cookOk = true
-  //       } else {
-  //         this.showError("Not enough ingredients!")
-  //         this.cookOk = false
-  //       }},
-  //     error: err => {
-  //       this.showError('Item no longer exists.')
-  //     }})
-  //     return this.cookOk 
-  // }
 
   // D
   public deleteUser(user: AppUser): void {
