@@ -29,10 +29,13 @@ export class EditUserComponent implements OnInit {
 
   public updateUser(username: string, password: string): void {
     this.userRequest.id = this.editUserId
-    this.userRequest.username = username
-    this.userRequest.password = password
-    this.ui.updateUser(this.userRequest)
-    
+    if(username != '' && password != '') {
+      this.userRequest.username = username
+      this.userRequest.password = password
+      this.ui.updateUser(this.userRequest)
+    } else {
+      this.ui.showError("Incomplete fields.")
+    }
   }
 
   public onDelete(): void {
