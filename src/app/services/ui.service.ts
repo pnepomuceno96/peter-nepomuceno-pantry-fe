@@ -28,10 +28,7 @@ export class UiService {
     this.loadItems()
     this.loadRecipes()
     this.loadCookedRecipes()
-    // this.$user.subscribe({next: user => {
-    //   this.currentUser = user
-    //   this.goHome()
-    // }})
+    
 
     this.$users.subscribe({next: users  => {
       this.userDataSource = new MatTableDataSource(users.slice())
@@ -44,12 +41,12 @@ export class UiService {
       const username = localStorage.getItem('username')
       const password = localStorage.getItem('password')
       const token = localStorage.getItem('token')
-      if(this.users.length != -1) {
-        if(username !== null && password !== null && token != null
+      
+      if(username !== null && password !== null && token != null
           && username !== 'undefined' && password !== 'undefined') {
           this.loadUser(username, password)
         }
-      }
+      
     }})
 
     this.$items.subscribe({next: items => {
@@ -573,7 +570,7 @@ export class UiService {
         
         this.recipes = recipes
         this.$recipes.next(this.currentUser.recipes)
-      
+        //this.loadUsers()
         
       },
       error: err => {

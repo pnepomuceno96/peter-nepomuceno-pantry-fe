@@ -10,5 +10,7 @@ import { UiService } from './services/ui.service';
 export class AppComponent {
   title = 'peter-nepomuceno-pantry-fe';
   public page = Page
-  constructor(public ui: UiService) {}
+  constructor(public ui: UiService) {
+    
+  }
 }

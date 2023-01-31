@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 import { UiService } from 'src/app/services/ui.service';
 import { AppUser } from 'src/data/AppUser';
 
@@ -9,10 +10,9 @@ import { AppUser } from 'src/data/AppUser';
 })
 export class UsersComponent implements OnInit{
   ngOnInit(): void {
-    
   }
   constructor(public ui: UiService) {
-    this.users = ui.users
+    this.users = ui.userDataSource.filteredData
   }
 
   public users: AppUser[] = []
