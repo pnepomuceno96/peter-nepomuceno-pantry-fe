@@ -20,8 +20,17 @@
 
 .card:hover {
     border-width: 5px;
-    border-image: linear-gradient(to right, rgb(228, 228, 228), rgb(80, 80, 233)) 1;
+    border-color: rgb(0, 0, 0);
     border-style: solid hidden hidden hidden;
+    animation-name: change-color;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes change-color {
+    0%  {border-color: rgb(0, 0, 0);}
+    50%  {border-color: rgb(102, 102, 249);}
+    100%  {border-color: rgb(0, 0, 0);}
 }
 
 .sub-card {
