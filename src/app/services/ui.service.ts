@@ -580,7 +580,6 @@ export class UiService {
   public loadCookedRecipes(): void {
     this.http.get<CookedRecipe[]>(this.cookedRecipeUrl).pipe(take(1)).subscribe({
       next: cookedRecipes => {
-        console.log("Cooked Recipes: " + cookedRecipes)
         this.cookedRecipes = cookedRecipes
         this.$cookedRecipes.next(cookedRecipes)
         
