@@ -13,6 +13,13 @@
     margin: 1rem;
     width: 22rem;
     vertical-align: top;
+    
+}
+
+.card:hover {
+    border-width: 5px;
+    border-color: rgb(87, 87, 252);
+    border-style: solid hidden hidden hidden;
 }
 
 .sub-card {
