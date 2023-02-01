@@ -452,6 +452,7 @@ export class UiService {
         // After posting a recipe, we reload the user to load our changes
         this.loadUserById(this.currentUser.id)
         this.loadRecipes()
+        this.loadUsers()
         this.steps = [{} as Step]
         this.recipeIngredients = [{} as IngredientDTO]
         

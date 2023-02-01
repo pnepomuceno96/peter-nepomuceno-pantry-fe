@@ -15,7 +15,7 @@
 </mat-toolbar>
 
 <mat-accordion>
-    <mat-expansion-panel *ngFor="let user of this.users" class="sub-card">
+    <mat-expansion-panel *ngFor="let user of this.ui.userDataSource.filteredData" class="sub-card">
       <mat-expansion-panel-header>
         <mat-panel-title>
           {{user.username}}
