@@ -30,7 +30,8 @@
 
 @keyframes change-color {
     0%  {border-color: rgb(0, 0, 0);}
-    50%  {border-color: rgb(102, 102, 249);}
+    40%  {border-color: rgb(102, 102, 249);}
+    60%  {border-color: rgb(102, 102, 249);}
     100%  {border-color: rgb(0, 0, 0);}
 }
 
