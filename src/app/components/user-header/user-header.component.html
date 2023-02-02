@@ -1,16 +1,16 @@
 <mat-toolbar color="primary" class="toolbar">
     <span>Welcome to your Pantry, {{ui.currentUser.username}}!</span>
-    <button mat-flat-button color="primary" (click)="ui.showNewItem()">Add an Item</button>
-    <button mat-flat-button color="primary" (click)="ui.showCookedRecipes()">All Cooked Recipes</button>
-    <button mat-flat-button color="primary" (click)="ui.showUsers()">Users List</button>
+    <button class="primary" (click)="ui.showNewItem()">Add an Item</button>
+    <button class="primary" (click)="ui.showCookedRecipes()">All Cooked Recipes</button>
+    <button class="primary" (click)="ui.showUsers()">Users List</button>
     <div id="align-right">
         <div id="column">
-        <button mat-flat-button color="accent" (click)="ui.showRecipes()">My Recipes</button>
-        <button mat-flat-button color="accent" (click)="ui.showEditUser()">User Settings</button>
+        <button class="accent" (click)="ui.showRecipes()">My Recipes</button>
+        <button class="accent" (click)="ui.showEditUser()">User Settings</button>
         </div>
         <div id="column">
-        <button mat-flat-button color="accent" (click)="ui.showNewRecipe()">New Recipe</button>
-        <button mat-flat-button color="primary" (click)="ui.logout(this.ui.currentUser.id)">Logout</button>
+        <button class="accent" (click)="ui.showNewRecipe()">New Recipe</button>
+        <button class="primary" (click)="ui.logout(this.ui.currentUser.id)">Logout</button>
         </div>   
     </div>
 </mat-toolbar>

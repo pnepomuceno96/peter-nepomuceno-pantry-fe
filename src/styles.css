@@ -2,3 +2,67 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+button {
+    padding: 9px;
+    border: none;
+    color: floralwhite;
+    border-radius: 12px;
+    font-family: Roboto;
+    font-size: 1rem;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+.accent {
+    background-color: rgb(255, 52, 120);
+}
+
+.accent:hover {
+    animation-name: ani;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes ani {
+    0% {background-color: rgb(255, 52, 120);}
+    40% {background-color: rgb(193, 108, 189);}
+    60% {background-color: rgb(193, 108, 189);}
+    100% {background-color: rgb(255, 52, 120);}
+}
+
+.primary {
+    background-color: rgb(83, 83, 227);
+}
+
+.primary:hover {
+    animation-name: ani2;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes ani2 {
+    0% {background-color: rgb(83, 83, 227);}
+    40% {background-color: rgb(143, 143, 242);}
+    60% {background-color: rgb(143, 143, 242);}
+    100% {background-color: rgb(83, 83, 227);}
+}
+
+.warn {
+    background-color: rgb(255, 9, 9);
+}
+
+.warn:hover {
+    animation-name: ani3;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes ani3 {
+    0% {background-color: rgb(255, 9, 9);}
+    40% {background-color: rgb(250, 103, 29);}
+    60% {background-color: rgb(250, 103, 29);}
+    100% {background-color: rgb(255, 9, 9);}
+}

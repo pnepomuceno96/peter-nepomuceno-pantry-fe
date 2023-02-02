@@ -12,6 +12,8 @@
         <mat-label>Password</mat-label>
         <input matInput required type="password" #password/>
     </mat-form-field>
+<mat-card-actions>
+<button class="primary" (click)="register(username.value, password.value)">Register</button>
+<button class="primary" (click)="this.ui.goHome()">Home</button>
+</mat-card-actions>
 </mat-card>
-<button mat-flat-button color="primary" (click)="register(username.value, password.value)">Register</button>
-<button mat-flat-button color="primary" (click)="this.ui.goHome()">Home</button>

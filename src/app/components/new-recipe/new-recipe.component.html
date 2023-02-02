@@ -1,5 +1,5 @@
 <mat-toolbar color="primary" class="toolbar">
-    New Recipe<button id="align-right" mat-flat-button color="warn" (click)="cancel()">Back</button>
+    New Recipe<button id="align-right" class="warn" (click)="cancel()">Back</button>
 </mat-toolbar>
 <mat-form-field>
     <mat-label>Name</mat-label>
@@ -30,4 +30,4 @@
     </mat-card-header>
     <app-step *ngFor="let step of this.ui.steps" [step]="step"></app-step>
 </mat-card>
-<button mat-flat-button color="primary" (click)="postRecipe(name.value, image.value, description.value)">Submit</button>
+<button class="primary" (click)="postRecipe(name.value, image.value, description.value)">Submit</button>

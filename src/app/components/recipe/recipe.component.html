@@ -1,7 +1,7 @@
 <mat-card class="card">
     <mat-card-header>
         <mat-card-title class="sub-card">{{recipe.name}}</mat-card-title>
-        <button id="align-right" mat-flat-button color="primary" (click)="openEditRecipeDialog()">Edit</button>
+        <button id="align-right" class="primary" (click)="openEditRecipeDialog()">Edit</button>
     </mat-card-header>
     <img mat-card-image class="smaller-img" src={{recipe.image}} alt="recipe image">
     <br>
@@ -27,8 +27,8 @@
     </mat-card-footer>
     <mat-card-actions>
         <div id="align-right">
-        <button mat-flat-button color="warn" (click)="deleteRecipe()">Delete</button>
-        <button mat-flat-button color="primary" (click)="cook()">Cook this Recipe</button>
+        <button class="warn" (click)="deleteRecipe()">Delete</button>
+        <button class="primary" (click)="cook()">Cook this Recipe</button>
     </div>
     </mat-card-actions>
 </mat-card>
