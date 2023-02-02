@@ -94,7 +94,7 @@ export class UiService {
   public $users: Subject<AppUser[]> = new Subject
 
   public item = {} as Item
-  public updatedItem = {} as Item
+  //public updatedItem = {} as Item
   public items: Item[] = []
   public $item: Subject<Item> = new Subject
   public $items: Subject<Item[]> = new Subject

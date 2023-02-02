@@ -28,12 +28,6 @@ export class CookedRecipeComponent implements OnInit {
     this.newItem.measurement = ""
     this.newItem.calories = this.cookedRecipe.calories
     this.newItem.weight = this.cookedRecipe.weight
-    // for(let i = 0; i < this.ui.items.length; i++) {
-    //   // Check if item already exists in pantry before it runs into error on backend
-    //   if (this.cookedRecipe.name == this.ui.items[i].name) {
-
-    //   }
-    // }
     this.newItem.quantity = 1
     this.ui.postItem(this.newItem)
     this.ui.deleteCookedRecipe(this.cookedRecipe)

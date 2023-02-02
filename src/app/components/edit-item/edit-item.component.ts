@@ -40,7 +40,7 @@ export class EditItemComponent implements OnInit{
   }
 
   private titleCase(string: string): string {
-    return string.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();})
+    return string.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substring(1).toLowerCase();})
   }
 
   public newProperties(name: string, image: string) {

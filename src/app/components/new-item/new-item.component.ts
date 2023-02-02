@@ -31,7 +31,7 @@ export class NewItemComponent implements OnInit{
     non-whitespace characters(via a regex), and returns the 
     same string but with each first character in uppercase.
     */
-    return string.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();})
+    return string.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substring(1).toLowerCase();})
   }
 
   public postItem(name: string, image: string) {

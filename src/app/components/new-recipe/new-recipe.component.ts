@@ -32,11 +32,11 @@ export class NewRecipeComponent implements OnInit {
   }
 
   private titleCase(string: string): string {
-    return string.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();})
+    return string.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substring(1).toLowerCase();})
   }
 
   private firstLetterCaps(string: string) {
-    return string.replace(string, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1);})
+    return string.replace(string, function(txt){return txt.charAt(0).toUpperCase() + txt.substring(1);})
   }
 
   private steps: string[] = []
