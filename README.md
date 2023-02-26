@@ -1,5 +1,6 @@
 # PeterNepomucenoPantryFe
 
+Use alongside peter-nepomuceno-pantry-be and peter-nepomuceno-pantry-auth-be
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.0.0.
 
 ## Development server
